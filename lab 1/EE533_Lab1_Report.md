@@ -29,3 +29,7 @@
 ### 1.3 Installing Ubuntu in VMs
 
 ![Screenshot 2025-01-17 175936](C:\Users\StepF\Documents\GitHub\ee533\lab 1\Pic\Screenshot 2025-01-17 175936.png)
+
+![Screenshot 2025-01-17 182940](C:\Users\StepF\Documents\GitHub\ee533\lab 1\Pic\Screenshot 2025-01-17 182940.png)
+
+![Screenshot 2025-01-17 185505](C:\Users\StepF\Documents\GitHub\ee533\lab 1\Pic\Screenshot 2025-01-17 185505.png)
