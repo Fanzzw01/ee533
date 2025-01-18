@@ -33,3 +33,24 @@
 ![Screenshot 2025-01-17 182940](C:\Users\StepF\Documents\GitHub\ee533\lab 1\Pic\Screenshot 2025-01-17 182940.png)
 
 ![Screenshot 2025-01-17 185505](C:\Users\StepF\Documents\GitHub\ee533\lab 1\Pic\Screenshot 2025-01-17 185505.png)
+
+### 1.4 Setup and Configure Network between two VMs
+
+* Add VMnet2 and check the IP Address
+  * VMnet2: 192.168.22.0
+  * Mask: 255.255.255.0
+
+![Screenshot 2025-01-17 191144](C:\Users\StepF\Documents\GitHub\ee533\lab 1\Pic\Screenshot 2025-01-17 191144.png)
+
+* Check the IP Address on Client and Server, and ping Client from the server
+  * Server and Client are all in the VMnet2 network
+  * Server IP address: 192.168.22.128
+  * Client IP address: 192.168.22.129
+
+![Screenshot 2025-01-17 192302](C:\Users\StepF\Documents\GitHub\ee533\lab 1\Pic\Screenshot 2025-01-17 192302.png)
+
+![Screenshot 2025-01-17 192255](C:\Users\StepF\Documents\GitHub\ee533\lab 1\Pic\Screenshot 2025-01-17 192255.png)
+
+* From the above pic, ping Client VM from Server VM is successful, so the Virtual Network is setup successfully under VMnet2
+
+## 2. Communication Between Server and Client with Sockets
