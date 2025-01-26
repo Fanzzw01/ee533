@@ -36,11 +36,88 @@
 
 * Schematic
 
-![Screenshot 2025-01-25 170424](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 170424.png)
+![Screenshot 2025-01-25 193420](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 193420.png)
 
 * Waveform
 
-![Screenshot 2025-01-25 172836](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 172836.png)
+![Screenshot 2025-01-25 193340](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 193340.png)
 
 ## 3. Extending Adder into 32-bit ALU
 
+### 3.1 32-bit Adder
+
+* Schematic
+
+![Screenshot 2025-01-25 195829](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 195829.png)
+
+* For the 32 bit FF, I use 4 8-bit FF to generate it
+
+![Screenshot 2025-01-25 195847](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 195847.png)
+
+* Waveform
+
+![Screenshot 2025-01-25 195740](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 195740.png)
+
+### 3.2 Subtractor with 32-bit Full Adder
+
+* Schematic
+
+![Screenshot 2025-01-25 204452](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 204452.png)
+
+* XOR32
+
+![Screenshot 2025-01-25 204500](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 204500.png)
+
+* Waveform
+
+![Screenshot 2025-01-25 204443](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 204443.png)
+
+### 3.3 Shifter
+
+* Schematic
+
+![Screenshot 2025-01-25 233224](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 233224.png)
+
+* Waveform
+  * Would left shift for 1 bit
+
+![Screenshot 2025-01-25 230135](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 230135.png)
+
+### 3.4 Counter
+
+* Description
+  * This 32-bit counter could count from 0 to 2^32 - 1 in every CLK if it's enabled.
+  * It could be cleared if CLR is 1.
+
+* Schematic
+
+![Screenshot 2025-01-25 213841](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 213841.png)
+
+* Waveform
+
+![Screenshot 2025-01-25 213847](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 213847.png)
+
+### 3.5 Comparator
+
+* Description
+  * This comparator could compare 2 32-bit signed number.
+    * If Cout = 0, then A >= B
+    * If Cout = 1, then A < B
+
+* Schematic
+
+![Screenshot 2025-01-25 220243](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 220243.png)
+
+* Waveform
+
+![Screenshot 2025-01-25 220224](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 220224.png)
+
+### 3.6 Verilog
+
+* Waveform
+
+![Screenshot 2025-01-25 230349](C:\Users\StepF\Pictures\Screenshots\Screenshot 2025-01-25 230349.png)
+
+* Log file
+  * I cannot find it...
+* The number of gates in Verilog is much less than in the schematic, for example, if I want to operate AND with 32bit A and 32bit B, I should include 32 AND gates, but in verilog, I only need to write OUT = A & B.
