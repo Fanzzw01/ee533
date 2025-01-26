@@ -128,7 +128,7 @@
 
 * Waveform
 
-![Screenshot 2025-01-25 230349](C:\Users\StepF\Pictures\Screenshots\Screenshot 2025-01-25 230349.png)
+![Screenshot 2025-01-25 230349](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 230349.png)
 
 * Log file
   * I cannot find it...
