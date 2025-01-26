@@ -133,3 +133,8 @@
 * Log file
   * I cannot find it...
 * The number of gates in Verilog is much less than in the schematic, for example, if I want to operate AND with 32bit A and 32bit B, I should include 32 AND gates, but in Verilog, I only need to write OUT = A & B.
+
+## 4. GitHub link
+
+* This lab's details and progress could be found under the link:
+  * https://github.com/Fanzzw01/ee533.git
