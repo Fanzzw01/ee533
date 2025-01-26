@@ -114,10 +114,22 @@
 
 ### 3.6 Verilog
 
+* Verilog and Testbench code
+
+![Screenshot 2025-01-25 233420](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 233420.png)
+
+![Screenshot 2025-01-25 233435](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 233435.png)
+
+![Screenshot 2025-01-25 233444](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 233444.png)
+
+![Screenshot 2025-01-25 233450](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 233450.png)
+
+![Screenshot 2025-01-25 233457](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 233457.png)
+
 * Waveform
 
 ![Screenshot 2025-01-25 230349](C:\Users\StepF\Pictures\Screenshots\Screenshot 2025-01-25 230349.png)
 
 * Log file
   * I cannot find it...
-* The number of gates in Verilog is much less than in the schematic, for example, if I want to operate AND with 32bit A and 32bit B, I should include 32 AND gates, but in verilog, I only need to write OUT = A & B.
+* The number of gates in Verilog is much less than in the schematic, for example, if I want to operate AND with 32bit A and 32bit B, I should include 32 AND gates, but in Verilog, I only need to write OUT = A & B.
