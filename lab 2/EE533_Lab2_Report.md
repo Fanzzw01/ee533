@@ -26,7 +26,7 @@
 
 ### 2.1 Schematic for 1-bit Full Adder
 
-![Screenshot 2025-01-25 154857](C:\Users\StepF\Pictures\Screenshots\Screenshot 2025-01-25 154857.png)
+![Screenshot 2025-01-25 154857](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 154857.png)
 
 ### 2.2 Schematic for 8-bit Adder
 
@@ -75,6 +75,7 @@
 ### 3.3 Shifter
 
 * Schematic
+* A + A = 2A, if A = 01, 2A = 10 = A + A
 
 ![Screenshot 2025-01-25 233224](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 233224.png)
 
@@ -88,7 +89,6 @@
 * Description
   * This 32-bit counter could count from 0 to 2^32 - 1 in every CLK if it's enabled.
   * It could be cleared if CLR is 1.
-
 * Schematic
 
 ![Screenshot 2025-01-25 213841](C:\Users\StepF\Documents\GitHub\ee533\lab 2\Pic\Screenshot 2025-01-25 213841.png)
@@ -133,6 +133,26 @@
 * Log file
   * I cannot find it...
 * The number of gates in Verilog is much less than in the schematic, for example, if I want to operate AND with 32bit A and 32bit B, I should include 32 AND gates, but in Verilog, I only need to write OUT = A & B.
+
+* OP_CODE table
+
+| OP_CODE | ALU Operation  |   OUT Example    |  A   |  B   | Result |
+| :-----: | :------------: | :--------------: | :--: | :--: | :----: |
+|  0000   |      AND       |      A & B       |  1   |  16  |   0    |
+|  0001   |       OR       |      A \| B      |  1   |  16  |   17   |
+|  0010   |      XOR       |      A ^ B       |  1   |  16  |   17   |
+|  0011   |      NOR       |    ~(A \| B)     |  1   |  16  |  -18   |
+|  0100   |   LEFT SHIFT   |      A << 1      |  1   |  16  |   2    |
+|  0101   |  RIGHT SHIFT   |      A >> 1      |  1   |  16  |   0    |
+|  0110   |   COMPARAOTR   | (A < B) ? 1 \| 0 |  1   |  16  |   1    |
+|  0111   |      PLUS      |      A + B       |  1   |  16  |   17   |
+|  1000   |     MUNUS      |      A - B       |  1   |  16  |  -15   |
+|  1001   |   MULTIPLEX    |      A * B       |  1   |  16  |   16   |
+|  1010   |    DIVISION    |      A / B       |  1   |  16  |   0    |
+|  1011   | REMAIN NUMBER  |      A % B       |  1   |  16  |   1    |
+|  1100   | EQUALITY CHECK |      A == B      |  1   |  16  |   0    |
+
+
 
 ## 4. GitHub link
 
