@@ -125,9 +125,9 @@ module ids_sim
    );
 
    detect7B matcher (
-      .ce            (matcher_ce),           // data enable
+      .CE            (matcher_ce),           // data enable
       .match_en      (matcher_en),           // match enable
-      .clk           (clk),
+      .CLK           (clk),
       .pipe1         ({in_fifo_ctrl, in_fifo_data}),   // Data in
 //      .hwregA        ({pattern_high, pattern_low}),   // pattern in
       .hwregA        (64'b0111111100000000000000000000000000000000000000000000000000000111),   // pattern in
@@ -136,7 +136,7 @@ module ids_sim
    );
 
    dropfifo drop_fifo (
-      .clk           (clk), 
+      .CLK           (clk), 
       .drop_pkt      (matcher_match && end_of_pkt), 
       .fiforead      (out_rdy), 
       .fifowrite     (out_wr_int), 
