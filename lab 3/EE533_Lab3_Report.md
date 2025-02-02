@@ -1470,3 +1470,8 @@ endmodule
 #### 2.2.4 What is the purpose of dual9Bmen in dropfifo.sch?
 
 * The dual9Bmen has 1 read port and 1 write port, it would store the packet temporarily while decide to drop it or forward it.
+
+## 3. GitHub Link
+
+* This Lab's update and commit history could be checked by the below link:
+  * https://github.com/Fanzzw01/ee533.git
