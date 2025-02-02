@@ -1432,21 +1432,41 @@ endmodule
 
 ### 2.1 Explain the pattern matching algorithm
 
-
+* The input data would be stored in small fifo and would be compared in detect7B.
+  * last CLK's data in pipe0 reg
+  * current CLK's data input with pipe1
+  * merge them together pipe0[47:0] with pipe1[63:0], and compare with hwregA[55:0], where the hwregA[63:56] masked the Byte that wanted to be compared.
+  * If it matches, the detect7B would output match = 1
+* Next in dropfifo, if the detect7B output match = 1, and it's the lastword (end of the packet), then drop_pkt would be set to 1, and this packet would be dropped.
 
 ### 2.2 Include the answers about the questions below
 
 #### 2.2.1 What is the purpose of AMASK[6:0]?
 
-
+* AMASK is for specific the bytes that wanted to be compared in the 7 bytes.
+* For example, if we want to compare the 4th byte, the AMASK[6:0] would be set as 7'b 0001000.
+* The AMASK[6:0] is connected with hwregA[63:56], the 7B data that want to compare is from hwregA[55:0].
 
 #### 2.2.2 What exactly does busmerge.v do?
 
-
+* It would merge pipe1[47:0] and pipe[63:0] to a [111:0] 112-bit wide bus.
+  * pipe1 is from the current CLK's data, and pipe0 is from the last CLK's data which is stored in the register.
+  * After merge the bus, the 112-bit data would be compared with hwregA[55:0].
+    * The input data would be compared with the 55-bit width for each 7B marked with AMASK[6:0]
+      * datain[55:0] compare with hwregA[55:0]
+      * datain[63:8] compare with hwregA[55:0]
+      * ...
+      * datain[111:56] compare with heregA[55:0]
 
 #### 2.2.3 What do the comp8 modules do in this schematic?
 
-
+* comp8 would compare 8-bit data with the desired 8-bit data and output if this Byte is matched.
+* e.g.
+  * A[0] XOR B[0]
+  * A[1] XOR B[1]
+  * ...
+* If all bits matched, then the output of comp8 would be 1.
 
 #### 2.2.4 What is the purpose of dual9Bmen in dropfifo.sch?
 
+* The dual9Bmen has 1 read port and 1 write port, it would store the packet temporarily while decide to drop it or forward it.
