@@ -28,11 +28,10 @@
 
 ## 4. NetFPGA Environment
 
-```
-Your NetFPGA username, password would be
-team8 4z65jKjbw6c8
-```
+<<<<<<< HEAD
+=======
 
+>>>>>>> a704fc89a40f42c10aea7c62c5339ddf087a4721
 ![Screenshot 2025-02-08 184307](C:\Users\StepF\Documents\GitHub\ee533\lab 4\Pic\Screenshot 2025-02-08 184307.png)
 
 ## 5. NetFPGA-based Linux Kernel IP Router
@@ -205,5 +204,25 @@ team8 4z65jKjbw6c8
 |   n3   |   n1   |   UDP    |         1.05          |
 |   n3   |   n2   |   UDP    |         1.05          |
 
+### 6.5 Testing bidir UDP on each node
+
+* n0 as UDP server
+
+![Screenshot 2025-02-08 224236](C:\Users\StepF\Documents\GitHub\ee533\lab 4\Pic\Screenshot 2025-02-08 224236.png)
+
+* n1 as UDP server
+
+![Screenshot 2025-02-08 224507](C:\Users\StepF\Documents\GitHub\ee533\lab 4\Pic\Screenshot 2025-02-08 224507.png)
+
+* n2 as UDP server
+
+![Screenshot 2025-02-08 224715](C:\Users\StepF\Documents\GitHub\ee533\lab 4\Pic\Screenshot 2025-02-08 224715.png)
+
+* n3 as UDP server
+
+![Screenshot 2025-02-08 224943](C:\Users\StepF\Documents\GitHub\ee533\lab 4\Pic\Screenshot 2025-02-08 224943.png)
+
 ## 4. GitHub Link
 
+* This Lab's update and commit history could be checked by the below link:
+  * https://github.com/yuezhenglingluan/USC_EE533_lab4.git
