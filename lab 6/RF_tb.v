@@ -25,6 +25,7 @@
 module RF_tb;
 
 	// Inputs
+    reg clk;
 	reg rst;
 	reg wena;
 	reg [63:0] wdata;
@@ -38,6 +39,7 @@ module RF_tb;
 
 	// Instantiate the Unit Under Test (UUT)
 	RF uut (
+        .clk(clk),
 		.rst(rst), 
 		.wena(wena), 
 		.wdata(wdata), 
@@ -48,8 +50,11 @@ module RF_tb;
 		.r1data(r1data)
 	);
 
+    always #50 clk = ~clk;
+
 	initial begin
 		// Initialize Inputs
+        clk = 1;
 		rst = 1;
 		wena = 0;
 		wdata = 0;

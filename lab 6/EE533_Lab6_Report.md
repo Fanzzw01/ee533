@@ -221,7 +221,6 @@ endmodule
 ```verilog
 module RF
 (
-    input clk,
     input rst,
     input wena,
     input [63:0] wdata,
@@ -237,16 +236,16 @@ module RF
 	 
 	integer i;
 
-    always @(posedge clk) begin
+    always @(*) begin
         if (rst == 1)
         begin
             for (i = 0; i < 8; i = i + 1) begin
-                RF[i] <= 64'b0;
+                RF[i] = 64'b0;
             end
         end
         else if (wena == 1)
         begin
-            RF[waddr] <= wdata;
+            RF[waddr] = wdata;
         end
     end
 
@@ -288,7 +287,6 @@ endmodule
 module RF_tb;
 
 	// Inputs
-	reg clk;
 	reg rst;
 	reg wena;
 	reg [63:0] wdata;
@@ -302,7 +300,6 @@ module RF_tb;
 
 	// Instantiate the Unit Under Test (UUT)
 	RF uut (
-		.clk(clk), 
 		.rst(rst), 
 		.wena(wena), 
 		.wdata(wdata), 
@@ -313,11 +310,8 @@ module RF_tb;
 		.r1data(r1data)
 	);
 
-    always #50 clk = ~clk;
-
 	initial begin
 		// Initialize Inputs
-		clk = 1;
 		rst = 1;
 		wena = 0;
 		wdata = 0;
@@ -394,15 +388,19 @@ endmodule
 
 * Screenshot
 
-![Screenshot 2025-02-19 165544](C:\Users\StepF\Documents\GitHub\ee533\lab 6\Pic\Screenshot 2025-02-19 165544.png)
+![Screenshot 2025-02-20 133019](C:\Users\StepF\Documents\GitHub\USC_EE533_lab6\lab6\Pic\Screenshot 2025-02-20 133019.png)
 
 ### 2.2 IP Core based BRAM for Instruction Memory
 
+```verilog
 
+```
 
 ### 2.3 IP Core based BRAM for Data Memory
 
+```verilog
 
+```
 
 ## 3. Building Pipeline Datapath
 

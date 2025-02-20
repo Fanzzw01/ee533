@@ -1,5 +1,6 @@
 module RF
 (
+    input clk,
     input rst,
     input wena,
     input [63:0] wdata,
@@ -15,16 +16,16 @@ module RF
 	 
 	integer i;
 
-    always @(*) begin
+    always @(posedge clk) begin
         if (rst == 1)
         begin
             for (i = 0; i < 8; i = i + 1) begin
-                RF[i] = 64'b0;
+                RF[i] <= 64'b0;
             end
         end
         else if (wena == 1)
         begin
-            RF[waddr] = wdata;
+            RF[waddr] <= wdata;
         end
     end
 
