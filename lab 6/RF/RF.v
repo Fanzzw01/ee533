@@ -30,8 +30,8 @@ module RF
     end
 
     always @(*) begin
-        r0data = RF[r0addr];
-        r1data = RF[r1addr];
+        r0data = ((waddr == r0addr) && wena) ? RF[waddr] : RF[r0addr];
+        r1data = ((waddr == r1addr) && wena) ? RF[waddr] : RF[r1addr];
     end
 
 endmodule
