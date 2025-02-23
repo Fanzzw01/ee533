@@ -1,31 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<nf:module xmlns:nf="http://www.NetFPGA.org/NF2_register_system" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.NetFPGA.org/NF2_register_system NF2_register_system.xsd ">
-	<nf:name>pipeline</nf:name>
-	<nf:prefix>pipeline</nf:prefix>
-	<nf:location>udp</nf:location>
-	<nf:description>Registers for Pipeline Processor</nf:description>
-	<nf:blocksize>64</nf:blocksize>
-	<nf:registers>
-		<nf:register>
-		  <nf:name>pc</nf:name>
-			<nf:description>program counter</nf:description>
-			<nf:type>generic_hardware32</nf:type>
-		</nf:register>
-		<nf:register>
-		  <nf:name>instr_mem</nf:name>
-			<nf:description>Instruction Memeory</nf:description>
-			<nf:type>generic_hardware32</nf:type>
-		</nf:register>
-		<nf:register>
-		  <nf:name>ids_cmd</nf:name>
-			<nf:description>Command Register</nf:description>
-			<nf:type>generic_software32</nf:type>
-		</nf:register>
-        	<nf:register>
-		  <nf:name>matches</nf:name>
-			<nf:description>Match Count Register</nf:description>
-			<nf:type>generic_hardware32</nf:type>
-		</nf:register>
-	</nf:registers>
-</nf:module>
+<nf:module xmlns:nf="http://www.NetFPGA.org/NF2_register_system"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.NetFPGA.org/NF2_register_system NF2_register_system.xsd">
 
+  <nf:name>pipeline</nf:name>
+  <nf:prefix>pipeline</nf:prefix>
+  <nf:location>udp</nf:location>
+  <nf:description>Registers for Pipelined Processor</nf:description>
+  <nf:blocksize>64</nf:blocksize>
+
+  <nf:registers>
+    <!-- Software-Controlled Registers -->
+    <nf:register>
+      <nf:name>alu_op</nf:name>
+      <nf:description>ALU Operation Code</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>wreg_en</nf:name>
+      <nf:description>Write Enable for Register</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>wmem_en</nf:name>
+      <nf:description>Write Enable for Memory</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>instr_mem_addr</nf:name>
+      <nf:description>Instruction Memory Address</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>instr_mem_data</nf:name>
+      <nf:description>Instruction Memory Data</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <!-- Hardware-Controlled Registers -->
+    <nf:register>
+      <nf:name>pc</nf:name>
+      <nf:description>Program Counter</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>pc_next</nf:name>
+      <nf:description>Next Program Counter</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>dout_m</nf:name>
+      <nf:description>Data from Memory</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>dout_wb</nf:name>
+      <nf:description>Data Written Back</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>reg1_id</nf:name>
+      <nf:description>Register 1 Address in ID Stage</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>reg2_id</nf:name>
+      <nf:description>Register 2 Address in ID Stage</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+  </nf:registers>
+</nf:module>

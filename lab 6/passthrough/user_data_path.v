@@ -361,25 +361,24 @@ module user_data_path
      .reset                (reset));
 
     passthrough
-     #(.DATA_WIDTH(DATA_WIDTH),
+     #(
+       .DATA_WIDTH(DATA_WIDTH),
        .CTRL_WIDTH(CTRL_WIDTH),
-       .UDP_REG_SRC_WIDTH (UDP_REG_SRC_WIDTH),
-       .OP_LUT_STAGE_NUM(OP_LUT_STAGE_NUM),
-       .NUM_OUTPUT_QUEUES(NUM_OUTPUT_QUEUES),
-       .STAGE_NUM(OQ_STAGE_NUM),
-       .SRAM_ADDR_WIDTH(SRAM_ADDR_WIDTH))
-    passthrough
-     (.out_data            (oq_in_data),
-     .out_ctrl             (oq_in_ctrl),
-     .out_wr               (oq_in_wr),
-     .out_rdy              (oq_in_rdy),
-                           
+       .UDP_REG_SRC_WIDTH(UDP_REG_SRC_WIDTH)
+     ) 
+    passthrough // Use a unique instance name
+     (
+     .out_data            (oq_in_data),
+     .out_ctrl            (oq_in_ctrl),
+     .out_wr              (oq_in_wr),
+     .out_rdy             (oq_in_rdy),
+
       // --- Interface to the rx input queues
      .in_data              (passthrough_in_data),
      .in_ctrl              (passthrough_in_ctrl),
      .in_wr                (passthrough_in_wr),
      .in_rdy               (passthrough_in_rdy),
-                           
+
       // --- Register interface
      .reg_req_in           (passthrough_in_reg_req),
      .reg_ack_in           (passthrough_in_reg_ack),
@@ -397,7 +396,8 @@ module user_data_path
 
       // --- Misc
      .clk                  (clk),
-     .reset                (reset));
+     .reset                (reset)
+     );
 
   ids #(
       .DATA_WIDTH(DATA_WIDTH),

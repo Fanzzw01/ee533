@@ -11,31 +11,8 @@ module passthrough
       parameter CTRL_WIDTH = DATA_WIDTH/8,
       parameter UDP_REG_SRC_WIDTH = 2
    )
-    (
-        out_data,
-        out_ctrl,
-        out_wr,
-        out_rdy,
-        in_data,
-        in_ctrl,
-        in_wr,
-        in_rdy,
-        reg_req_in,
-        reg_ack_in,
-        reg_rd_wr_L_in,
-        reg_addr_in,
-        reg_data_in,
-        reg_src_in,
-        reg_req_out,
-        reg_ack_out,
-        reg_rd_wr_L_out,
-        reg_addr_out,
-        reg_data_out,
-        reg_src_out,
-        clk,
-        reset
-    );
-    (
+   (
+      // Data Path Interface
       input  [DATA_WIDTH-1:0]             in_data,
       input  [CTRL_WIDTH-1:0]             in_ctrl,
       input                               in_wr,
@@ -46,7 +23,7 @@ module passthrough
       output                              out_wr,
       input                               out_rdy,
       
-      // --- Register interface
+      // Register Interface
       input                               reg_req_in,
       input                               reg_ack_in,
       input                               reg_rd_wr_L_in,
@@ -61,9 +38,9 @@ module passthrough
       output  [`CPCI_NF2_DATA_WIDTH-1:0]  reg_data_out,
       output  [UDP_REG_SRC_WIDTH-1:0]     reg_src_out,
 
-      // misc
-      input                                reset,
-      input                                clk
+      // Misc
+      input                                clk,
+      input                                reset
    );
 
    assign out_data = in_data;
