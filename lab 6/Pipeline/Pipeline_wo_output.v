@@ -6,13 +6,13 @@
 // /___/  \  /    Vendor: Xilinx 
 // \   \   \/     Version : 10.1
 //  \   \         Application : sch2verilog
-//  /   /         Filename : Pipeline.vf
-// /___/   /\     Timestamp : 02/24/2025 16:02:00
+//  /   /         Filename : Pipeline_wo_output.vf
+// /___/   /\     Timestamp : 02/24/2025 16:55:09
 // \   \  /  \ 
 //  \___\/\___\ 
 //
-//Command: C:\Xilinx\10.1\ISE\bin\nt\unwrapped\sch2verilog.exe -intstyle ise -family virtex2p -w "E:/Documents and Settings/student/EE533_Lsb6/Pipeline.sch" Pipeline.vf
-//Design Name: Pipeline
+//Command: C:\Xilinx\10.1\ISE\bin\nt\unwrapped\sch2verilog.exe -intstyle ise -family virtex2p -w "E:/Documents and Settings/student/EE533_Lsb6/Pipeline_wo_output.sch" Pipeline_wo_output.vf
+//Design Name: Pipeline_wo_output
 //Device: virtex2p
 //Purpose:
 //    This verilog netlist is translated from an ECS schematic.It can be 
@@ -20,10 +20,10 @@
 //
 `timescale 1ns / 1ps
 
-module Pipeline(ALU_OP, 
-                clk, 
-                ONE, 
-                rst);
+module Pipeline_wo_output(ALU_OP, 
+                          clk, 
+                          ONE, 
+                          rst);
 
     input [3:0] ALU_OP;
     input clk;
@@ -41,6 +41,7 @@ module Pipeline(ALU_OP,
    wire [63:0] R1_out_ID;
    wire [7:0] R1_out_M;
    wire [63:0] R2_out_EX;
+   wire [63:0] R2_out_ID;
    wire [63:0] R2_out_M;
    wire WMemEn_EX;
    wire WMemEn_ID;
@@ -51,6 +52,7 @@ module Pipeline(ALU_OP,
    wire WRegEn_WB;
    wire [2:0] WReg1_EX;
    wire [2:0] WReg1_ID;
+   wire [2:0] WReg1_M;
    wire [2:0] WReg1_WB;
    
    ALU XLXI_1 (.A(PC[63:0]), 
@@ -86,11 +88,11 @@ module Pipeline(ALU_OP,
               .wdata(Dout_WB[63:0]), 
               .wena(WRegEn_WB), 
               .r0data(R1_out_ID[63:0]), 
-              .r1data());
+              .r1data(R2_out_ID[63:0]));
    ID_EX_Reg XLXI_6 (.clk(clk), 
                      .rst(rst), 
                      .R1_out_ID(R1_out_ID[63:0]), 
-                     .R2_out_ID(), 
+                     .R2_out_ID(R2_out_ID[63:0]), 
                      .WMemEn_ID(WMemEn_ID), 
                      .WRegEn_ID(WRegEn_ID), 
                      .WReg1_ID(WReg1_ID[2:0]), 
@@ -110,7 +112,7 @@ module Pipeline(ALU_OP,
                     .R2_out_M(R2_out_M[63:0]), 
                     .WMemEn_M(WMemEn_M), 
                     .WRegEn_M(WRegEn_M), 
-                    .WReg1_M());
+                    .WReg1_M(WReg1_M[2:0]));
    Data_Mem XLXI_8 (.addra(R1_out_M[7:0]), 
                     .addrb(R1_out_M[7:0]), 
                     .clka(clk), 
@@ -122,7 +124,7 @@ module Pipeline(ALU_OP,
                     .Dout_M(Dout_M[63:0]), 
                     .rst(rst), 
                     .WRegEn_M(WRegEn_M), 
-                    .WReg1_M(), 
+                    .WReg1_M(WReg1_M[2:0]), 
                     .Dout_WB(Dout_WB[63:0]), 
                     .WRegEn_WB(WRegEn_WB), 
                     .WReg1_WB(WReg1_WB[2:0]));

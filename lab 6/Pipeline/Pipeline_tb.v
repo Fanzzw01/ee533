@@ -123,6 +123,8 @@ module Pipeline_tb;
 		@(posedge clk);
 
 		@(posedge clk);
+
+		@(posedge clk);
 		$stop;
 
 	end
