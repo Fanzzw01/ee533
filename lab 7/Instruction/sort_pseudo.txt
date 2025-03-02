@@ -3,7 +3,7 @@ lw r1, array_size
 subi r1, r1, #1
 mov r2, #0
 outer_loop:
-bge r2, r1, end
+beq r2, r1, end
 addi r3, r2, #1
 inner_loop:
 bgt r3, r1, next_out

@@ -36,4 +36,5 @@ module RF
         r1data = ((waddr == r1addr) && wena) ? RF[waddr] : RF[r1addr];
     end
 
+
 endmodule
