@@ -11,17 +11,18 @@
 #10 lw r5, r3(#0)
 #11 noop
 #12 noop
-#13 blt r4, r5, no_swap
-#14 noop
-#15 sw r4, r3(#0)
-#16 sw r5, r2(#0)
-#17 addi r2, r2, #1           @no_swap
-#18 addi r3, r3, #1
-#19 j inner_loop
-#20 noop
-#21 subi r1, r1, #1           @next_out
-#22 movi r2, #0
-#23 movi r3, #1
-#24 j outer_loop
-#25 noop
-#26 j end                     @end
+#13 noop
+#14 blt r4, r5, no_swap
+#15 noop
+#16 sw r4, r3(#0)
+#17 sw r5, r2(#0)
+#18 addi r2, r2, #1           @no_swap
+#19 addi r3, r3, #1
+#20 j inner_loop
+#21 noop
+#22 subi r1, r1, #1           @next_out
+#23 movi r2, #0
+#24 movi r3, #1
+#25 j outer_loop
+#26 noop
+#27 j end                     @end
