@@ -356,6 +356,38 @@ end:
 j end
 ```
 
+* In
+
+```
+#0  movi r1, #9
+#1  movi r2, #0
+#2  movi r3, #1
+#3  noop
+#4  noop
+#3  beq r1, r3, end           @outer_loop
+#4  noop
+#5  beq r2, r1, next_out      @inner_loop
+#6  noop
+#7  lw r4, r2(#0)         
+#8  lw r5, r3(#0)
+#9  noop
+#10 noop
+#11 blt r4, r5, no_swap
+#12 noop
+#13 sw r4, r3(#0)
+#14 sw r5, r2(#0)
+#15 addi r2, r2, #1           @no_swap
+#16 addi r3, r3, #1
+#17 j inner_loop
+#18 noop
+#19 subi r1, r1, #1           @next_out
+#20 movi r2, #0
+#21 movi r3, #1
+#22 j outer_loop
+#23 noop
+#24 j end                     @end
+```
+
 * Instruction OP Code
 
 | Instr | OP Code [31:26] |
@@ -369,6 +401,21 @@ j end
 |  bgt  |     000110      |
 |  blt  |     000111      |
 |   j   |     001000      |
+
+* updated Instr opcode lookup table
+
+| Instr | OP Code [31:26] |
+| :---: | :-------------: |
+| noop  |     000000      |
+| addi  |     000001      |
+| movi  |     000010      |
+|  lw   |     000011      |
+|  sw   |     000100      |
+|  beq  |     000101      |
+|  bgt  |     000110      |
+|  blt  |     000111      |
+|   j   |     001000      |
+| subi  |     001001      |
 
 * Instruction Table
 
@@ -399,6 +446,41 @@ j end
 |  22  |            |     j outer_loop     |     001000      |    5'd0    |    5'd0    |     16'd1     |
 |  23  |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
 |  24  |    end     |        j end         |     001000      |    5'd0    |    5'd0    |    16'd24     |
+
+
+
+* New
+
+| Addr |   Label    |        Instr         | OP Code [31:26] | Rs [25:21] | Rt [20:16] | Offset [15:0] |
+| :--: | :--------: | :------------------: | :-------------: | :--------: | :--------: | :-----------: |
+|  0   |            |     movi r1, #9      |     000010      |    5'd0    |    5'd1    |     16'd9     |
+|  1   |            |     movi r2, #0      |     000010      |    5'd0    |    5'd2    |     16'd0     |
+|  2   |            |     movi r3, #1      |     000010      |    5'd0    |    5'd3    |     16'd1     |
+|  3   |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
+|  4   |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
+|  5   | outer_loop |   beq r1, r3, end    |     000101      |    5'd1    |    5'd3    |    16'd26     |
+|  6   |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
+|  7   | inner_loop | bgt r3, r1, next_out |     000110      |    5'd1    |    5'd3    |    16'd21     |
+|  8   |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
+|  9   |            |    lw r4, r2(#0)     |     000011      |    5'd2    |    5'd4    |     16'd0     |
+|  10  |            |    lw r5, r3(#0)     |     000011      |    5'd3    |    5'd5    |     16'd0     |
+|  11  |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
+|  12  |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
+|  13  |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
+|  14  |            | blt r4, r5, no_swap  |     000111      |    5'd5    |    5'd4    |    16'd18     |
+|  15  |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
+|  16  |            |    sw r4, r3(#0)     |     000100      |    5'd3    |    5'd4    |     16'd0     |
+|  17  |            |    sw r5, r2(#0)     |     000100      |    5'd2    |    5'd5    |     16'd0     |
+|  18  |  no_swap   |   addi r2, r2, #1    |     000001      |    5'd2    |    5'd2    |     16'd1     |
+|  19  |            |   addi r3, r3, #1    |     000001      |    5'd3    |    5'd3    |     16'd1     |
+|  20  |            |     j inner_loop     |     001000      |    5'd0    |    5'd0    |     16'd7     |
+|  21  |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
+|  22  |  next_out  |   subi r1, r1, #1    |     001001      |    5'd1    |    5'd1    |     16'd1     |
+|  23  |            |     movi r2, #0      |     000010      |    5'd0    |    5'd2    |     16'd0     |
+|  24  |            |     movi r3, #1      |     000010      |    5'd0    |    5'd3    |     16'd1     |
+|  25  |            |     j outer_loop     |     001000      |    5'd0    |    5'd0    |     16'd5     |
+|  26  |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
+|  27  |    end     |        j end         |     001000      |    5'd0    |    5'd0    |    16'd27     |
 
 ## 3. 5-Stage Pipeline Elements
 

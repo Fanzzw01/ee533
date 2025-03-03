@@ -10,6 +10,7 @@ module M_WB_Reg
     input MOVI_M,
     input LW_M,
     input SW_M,
+    input SUBI_M,
 
     input WRE_M,
     input [63:0] D_out_M,
@@ -24,6 +25,7 @@ module M_WB_Reg
     output reg MOVI_WB,
     output reg LW_WB,
     output reg SW_WB,
+    output reg SUBI_WB,
 
     output reg WRE_WB,
     output [63:0] D_out_WB,
@@ -43,6 +45,7 @@ module M_WB_Reg
             MOVI_WB <= 0;
             LW_WB <= 0;
             SW_WB <= 0;
+            SUBI_WB <= 0;
             WRE_WB <= 0;
             rs_data_WB <= 0;
             rt_data_WB <= 0;
@@ -56,6 +59,7 @@ module M_WB_Reg
             MOVI_WB <= MOVI_M;
             LW_WB <= LW_M;
             SW_WB <= SW_M;
+            SUBI_WB <= SUBI_M;
             WRE_WB <= WRE_M;
             rs_data_WB <= rs_data_M;
             rt_data_WB <= rt_data_M;

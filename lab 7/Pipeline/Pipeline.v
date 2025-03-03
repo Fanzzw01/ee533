@@ -88,7 +88,11 @@ module Pipeline(clk,
                 WRE_EX, 
                 WRE_ID, 
                 WRE_M, 
-                WRE_WB);
+                WRE_WB,
+                SUBI_ID,
+                SUBI_EX,
+                SUBI_M,
+                SUBI_WB);
 
     input clk;
     input [31:0] Instr_IN;
@@ -159,6 +163,11 @@ module Pipeline(clk,
    output WRE_ID;
    output WRE_M;
    output WRE_WB;
+
+   output SUBI_ID;
+   output SUBI_EX;
+   output SUBI_M;
+   output SUBI_WB;
    
    wire [15:0] Offset;
    wire NOOP_ID_DUMMY;
@@ -221,6 +230,11 @@ module Pipeline(clk,
    wire LW_M_DUMMY;
    wire [63:0] PC_next_DUMMY;
    wire WME_EX_DUMMY;
+
+   wire SUBI_ID_DUMMY;
+   wire SUBI_EX_DUMMY;
+   wire SUBI_M_DUMMY;
+   wire SUBI_WB_DUMMY;
    
    assign ADDI_EX = ADDI_EX_DUMMY;
    assign ADDI_ID = ADDI_ID_DUMMY;
@@ -282,6 +296,13 @@ module Pipeline(clk,
    assign WRE_ID = WRE_ID_DUMMY;
    assign WRE_M = WRE_M_DUMMY;
    assign WRE_WB = WRE_WB_DUMMY;
+
+   assign SUBI_ID = SUBI_ID_DUMMY;
+   assign SUBI_EX = SUBI_EX_DUMMY;
+   assign SUBI_M = SUBI_M_DUMMY;
+   assign SUBI_WB = SUBI_WB_DUMMY;
+
+
    PC XLXI_1 (.clk(clk), 
               .PC_next(PC_next_DUMMY[63:0]), 
               .rst(rst), 
@@ -317,7 +338,8 @@ module Pipeline(clk,
                         .BEQ_ID(BEQ_ID_DUMMY), 
                         .BGT_ID(BGT_ID_DUMMY), 
                         .BLT_ID(BLT_ID_DUMMY), 
-                        .J_ID(J_ID_DUMMY), 
+                        .J_ID(J_ID_DUMMY),
+                        .SUBI_ID(SUBI_ID_DUMMY), 
                         .LW_ID(LW_ID_DUMMY), 
                         .MOVI_ID(MOVI_ID_DUMMY), 
                         .NOOP_ID(NOOP_ID_DUMMY), 
@@ -337,7 +359,8 @@ module Pipeline(clk,
                       .rs_data_ID(rs_data_ID_DUMMY[63:0]), 
                       .rt_data_ID(rt_data_ID_DUMMY[63:0]), 
                       .rt_ID(rt_ID_DUMMY[4:0]), 
-                      .SW_ID(SW_ID_DUMMY), 
+                      .SW_ID(SW_ID_DUMMY),
+                      .SUBI_ID(SUBI_ID_DUMMY), 
                       .WME_ID(WME_ID_DUMMY), 
                       .WRE_ID(WRE_ID_DUMMY), 
                       .ADDI_EX(ADDI_EX_DUMMY), 
@@ -349,7 +372,8 @@ module Pipeline(clk,
                       .rs_data_EX(rs_data_EX_DUMMY[63:0]), 
                       .rt_data_EX(rt_data_EX_DUMMY[63:0]), 
                       .rt_EX(rt_EX_DUMMY[4:0]), 
-                      .SW_EX(SW_EX_DUMMY), 
+                      .SW_EX(SW_EX_DUMMY),
+                      .SUBI_EX(SUBI_EX_DUMMY), 
                       .WME_EX(WME_EX_DUMMY), 
                       .WRE_EX(WRE_EX_DUMMY));
    ALU XLXI_11 (.A(rs_data_EX_DUMMY[63:0]), 
@@ -358,7 +382,8 @@ module Pipeline(clk,
                 .ALU_Out(ALU_result_EX_DUMMY[63:0]), 
                 .Overflow(), 
                 .Zero_Flag());
-   ALU_src_MUX XLXI_12 (.ADDI_EX(ADDI_EX_DUMMY), 
+   ALU_src_MUX XLXI_12 (.ADDI_EX(ADDI_EX_DUMMY),
+                        .SUBI_EX(SUBI_EX_DUMMY), 
                         .LW_EX(LW_EX_DUMMY), 
                         .Offset_EX(Offset_EX_DUMMY[63:0]), 
                         .rt_data(rt_data_EX_DUMMY[63:0]), 
@@ -375,7 +400,8 @@ module Pipeline(clk,
                      .rs_data_EX(rs_data_EX_DUMMY[63:0]), 
                      .rt_data_EX(rt_data_EX_DUMMY[63:0]), 
                      .rt_EX(rt_EX_DUMMY[4:0]), 
-                     .SW_EX(SW_EX_DUMMY), 
+                     .SW_EX(SW_EX_DUMMY),
+                     .SUBI_EX(SUBI_EX_DUMMY), 
                      .WME_EX(WME_EX_DUMMY), 
                      .WRE_EX(WRE_EX_DUMMY), 
                      .ADDI_M(ADDI_M_DUMMY), 
@@ -388,11 +414,13 @@ module Pipeline(clk,
                      .rt_data_M(rt_data_M_DUMMY[63:0]), 
                      .rt_M(rt_M_DUMMY[4:0]), 
                      .SW_M(SW_M_DUMMY), 
+                     .SUBI_M(SUBI_M_DUMMY),
                      .WME_M(WME_M_DUMMY), 
                      .WRE_M(WRE_M_DUMMY));
    D_addr_src_MUX XLXI_14 (.ALU_result_M(ALU_result_M_DUMMY[63:0]), 
                            .rt_M(rt_M_DUMMY[4:0]), 
-                           .SW_M(SW_M_DUMMY), 
+                           .SW_M(SW_M_DUMMY),
+                           .LW_M(LW_M_DUMMY), 
                            .D_addr(D_MEM_addr_DUMMY[7:0]));
    D_MEM XLXI_15 (.addra(D_MEM_addr_DUMMY[7:0]), 
                   .addrb(D_MEM_addr_DUMMY[7:0]), 
@@ -412,7 +440,8 @@ module Pipeline(clk,
                      .rst(rst), 
                      .rs_data_M(rs_data_M_DUMMY[63:0]), 
                      .rt_M(rt_M_DUMMY[4:0]), 
-                     .SW_M(SW_M_DUMMY), 
+                     .SW_M(SW_M_DUMMY),
+                     .SUBI_M(SUBI_M_DUMMY), 
                      .WRE_M(WRE_M_DUMMY), 
                      .ADDI_WB(ADDI_WB_DUMMY), 
                      .ALU_result_WB(ALU_result_WB_DUMMY[63:0]), 
@@ -424,11 +453,13 @@ module Pipeline(clk,
                      .rs_data_WB(rs_data_WB[63:0]), 
                      .rt_WB(rt_WB_DUMMY[2:0]), 
                      .SW_WB(SW_WB), 
+                     .SUBI_WB(SUBI_WB_DUMMY),
                      .WRE_WB(WRE_WB_DUMMY));
    RF_WB_data_src_MUX XLXI_17 (.ADDI_WB(ADDI_WB_DUMMY), 
                                .ALU_out_WB(ALU_result_WB_DUMMY[63:0]), 
                                .D_out_WB(D_out_WB_DUMMY[63:0]), 
                                .LW_WB(LW_WB_DUMMY), 
+                               .SUBI_WB(SUBI_WB_DUMMY),
                                .MOVI_WB(MOVI_WB_DUMMY), 
                                .Offset_WB(Offset_WB_DUMMY[63:0]), 
                                .RF_WB_Din(RF_WB_Din_DUMMY[63:0]));
