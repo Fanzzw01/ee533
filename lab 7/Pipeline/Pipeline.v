@@ -7,7 +7,7 @@
 // \   \   \/     Version : 10.1
 //  \   \         Application : sch2verilog
 //  /   /         Filename : Pipeline.vf
-// /___/   /\     Timestamp : 03/01/2025 23:20:51
+// /___/   /\     Timestamp : 03/02/2025 16:10:50
 // \   \  /  \ 
 //  \___\/\___\ 
 //
@@ -24,6 +24,7 @@ module Pipeline(clk,
                 Instr_IN, 
                 Instr_W_en, 
                 I_W_Addr, 
+                ONE, 
                 rst, 
                 ADDI_EX, 
                 ADDI_ID, 
@@ -93,6 +94,7 @@ module Pipeline(clk,
     input [31:0] Instr_IN;
     input Instr_W_en;
     input [8:0] I_W_Addr;
+    input [63:0] ONE;
     input rst;
    output ADDI_EX;
    output ADDI_ID;
@@ -159,7 +161,6 @@ module Pipeline(clk,
    output WRE_WB;
    
    wire [15:0] Offset;
-   wire [63:0] ONE;
    wire NOOP_ID_DUMMY;
    wire [63:0] PC_plus_one_DUMMY;
    wire [63:0] ALU_result_WB_DUMMY;
@@ -434,7 +435,6 @@ module Pipeline(clk,
    PC_plus_1 XLXI_18 (.ONE(ONE[63:0]), 
                       .PC(PC_DUMMY[63:0]), 
                       .PC_next(PC_plus_one_DUMMY[63:0]));
-   VCC XLXI_19 (.P(ONE[0]));
    Branch_Detection_Unit XLXI_21 (.BEQ_ID(BEQ_ID_DUMMY), 
                                   .BGT_ID(BGT_ID_DUMMY), 
                                   .BLT_ID(BLT_ID_DUMMY), 
