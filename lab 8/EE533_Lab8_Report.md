@@ -27,12 +27,12 @@
 
 | Addr |   Label    |        Instr         | OP Code [31:26] | Rs [25:21] | Rt [20:16] | Offset [15:0] |
 | :--: | :--------: | :------------------: | :-------------: | :--------: | :--------: | :-----------: |
-|  0   |            |    lw r1, r0(#3)     |     000011      |    5'd0    |    5'd1    |     16'd0     |
+|  0   |            |    lw r1, r0(#3)     |     000011      |    5'd0    |    5'd1    |     16'd3     |
 |  1   |            |     movi r2, #0      |     000010      |    5'd0    |    5'd2    |     16'd0     |
 |  2   |            |     movi r3, #1      |     000010      |    5'd0    |    5'd3    |     16'd1     |
 |  3   |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
 |  4   |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
-|  5   | outer_loop |   beq r1, r3, end    |     000101      |    5'd1    |    5'd3    |    16'd27     |
+|  5   | outer_loop |   beq r1, r3, end    |     000101      |    5'd3    |    5'd1    |    16'd27     |
 |  6   |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
 |  7   | inner_loop | beq r3, r1, next_out |     000101      |    5'd1    |    5'd3    |    16'd21     |
 |  8   |            |         noop         |     000000      |    5'd0    |    5'd0    |     16'd0     |
@@ -71,6 +71,16 @@
 ![Packet_Expected_after_Processing](C:\Users\StepF\Documents\GitHub\ee533\lab 8\Pic\Packet_Expected_after_Processing.png)
 
 ## 3. Pipeline Part
+
+### 3.1 D_MEM Mode Definition
+
+|    Mode Name    | Mode Code |                      Description                       |
+| :-------------: | :-------: | :----------------------------------------------------: |
+|     FIFO_IN     |    00     | BRAM working as FIFO and write in packet, WP <= WP + 1 |
+|    FIFO_OUT     |    01     | BRAM working as FIFO and read out packet, RP <= RP + 1 |
+| SRAM_PROCESSING |    10     |      BRAM working as D_MEM in pipeline processor       |
+
+
 
 ### 3.1 D_MEM
 
