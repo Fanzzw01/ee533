@@ -2,9 +2,9 @@
 
 module RP_Adder
 (
-    input [63:0] RP,
+    input [7:0] RP,
 
-    output [63:0] RP_next
+    output [7:0] RP_next
 );
 
     assign RP_next = RP + 1;

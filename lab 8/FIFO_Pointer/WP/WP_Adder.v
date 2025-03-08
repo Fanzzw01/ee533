@@ -2,9 +2,9 @@
 
 module WP_Adder
 (
-    input [63:0] WP,
+    input [7:0] WP,
 
-    output [63:0] WP_next
+    output [7:0] WP_next
 );
 
     assign WP_next = WP + 1;
