@@ -100,6 +100,9 @@ module Pipeline(ALU_OP,
    wire [63:0] PC_next_DUMMY;
    wire [63:0] R2_out_ID_DUMMY;
    wire [2:0] Reg1_ID_DUMMY;
+
+   assign ALU_OP[3:0] = 4'b0;
+   assign ONE[63:0] = 64'b1;
    
    assign Dout_M[63:0] = Dout_M_DUMMY[63:0];
    assign Dout_WB[63:0] = Dout_WB_DUMMY[63:0];
