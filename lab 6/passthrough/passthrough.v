@@ -58,9 +58,9 @@ module passthrough
    Pipeline pipeline
    (
         .ALU_OP             (), 
-        .clk                (), 
+        .clk                (clk), 
         .ONE                (), 
-        .rst                (), 
+        .rst                (reset), 
         .Dout_M             (), 
         .Dout_WB            (), 
         .PC                 (), 
