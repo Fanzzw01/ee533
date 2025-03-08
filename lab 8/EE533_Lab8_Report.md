@@ -80,9 +80,9 @@
 |    FIFO_OUT     |    01     | BRAM working as FIFO and read out packet, RP <= RP + 1 |
 | SRAM_PROCESSING |    10     |      BRAM working as D_MEM in pipeline processor       |
 
+### 3.2 RP (as Head Address)
 
-
-### 3.1 D_MEM
+#### 3.2.1 RP_Reg
 
 * Verilog
 
@@ -95,6 +95,76 @@
 * Waveform
 
 
+
+#### 3.2.2 RP_Adder
+
+* Verilog
+
+
+
+* Testbench
+
+
+
+* Waveform
+
+#### 3.2.3 RP_Controller
+
+* Verilog
+
+
+
+* Testbench
+
+
+
+* Waveform
+
+
+
+### 3.3 WP (as Tail Address)
+
+#### 3.3.1 WP_Reg
+
+* Verilog
+
+
+
+* Testbench
+
+
+
+* Waveform
+
+
+
+#### 3.3.2 WP_Adder
+
+* Verilog
+
+
+
+* Testbench
+
+
+
+* Waveform
+
+#### 3.3.3 WP_Controller
+
+* Verilog
+
+
+
+* Testbench
+
+
+
+* Waveform
+
+
+
+### 3.4 RP
 
 * .coe file
 
