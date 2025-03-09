@@ -2,7 +2,7 @@
 
 module WME_OR
 (
-    input WME_EX,
+    input WME_M,
     input WP_en,
 
     output WME
