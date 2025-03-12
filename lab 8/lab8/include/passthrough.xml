@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nf:module xmlns:nf="http://www.NetFPGA.org/NF2_register_system" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           xsi:schemaLocation="http://www.NetFPGA.org/NF2_register_system NF2_register_system.xsd">
+  
+  <nf:name>passthrough</nf:name>
+  <nf:prefix>passthrough</nf:prefix>
+  <nf:location>udp</nf:location>
+  <nf:description>Registers for programming I-memory and D-memory</nf:description>
+  <nf:blocksize>512</nf:blocksize>
+
+  <nf:registers>
+    <!-- Address Register -->
+    <nf:register>
+      <nf:name>CMD_reg</nf:name>
+      <nf:description>instruction interface</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>flag_reg</nf:name>
+      <nf:description>
+       flag register, bit [0] 1 for start instruction sending to iram
+                      bit [1] 1 for CMD_reg ready to write
+                      bit [2] 1 for CMD now in reg, could send
+                      bit [3] 1 for ready to go pipline stages, 0 for not piplie stage    after the scrip finished instructions sending, set this bit to be 1 for finish instruction writing
+                      bit [4] 1 for there is packet in fifo
+      </nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <!-- Command Register -->
+    <nf:register>
+      <nf:name>hw_reg0</nf:name>
+      <nf:description>
+        hwreg
+      </nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+		  <nf:name>addr_reg</nf:name>
+			<nf:description>the pc address for iram</nf:description>
+			<nf:type>generic_hardware32</nf:type>
+		</nf:register>
+
+  </nf:registers>
+
+</nf:module>

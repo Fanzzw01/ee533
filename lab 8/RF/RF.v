@@ -10,13 +10,16 @@ module RF
     input [2:0] r0addr,
     input [2:0] r1addr,
 
-    output reg signed [63:0] r0data,
-    output reg signed [63:0] r1data
+    output signed [63:0] r0data,
+    output signed [63:0] r1data
 );
 
     reg signed [63:0] RF [7:0];
 	 
 	integer i;
+
+    assign r0data = ((waddr == r0addr) && wena) ? RF[waddr] : RF[r0addr];
+    assign r1data = ((waddr == r1addr) && wena) ? RF[waddr] : RF[r1addr];
 
     always @(posedge clk) begin
         if (rst == 1)
@@ -31,10 +34,6 @@ module RF
         end
     end
 
-    always @(*) begin
-        r0data = ((waddr == r0addr) && wena) ? RF[waddr] : RF[r0addr];
-        r1data = ((waddr == r1addr) && wena) ? RF[waddr] : RF[r1addr];
-    end
 
 
 endmodule
