@@ -4,15 +4,16 @@ module PC
 (
     input clk,
     input rst,
-    input [63:0] PC_next,
+    input [8:0] PC_next,
+    input [1:0] thread,
 
-    output reg [63:0] PC
+    output reg [8:0] PC
 );
 
     always @(posedge clk) begin
         if (rst)
-            PC <= 64'b0;
-        else
+            PC <= 9'b0;
+        else if (thread == 2'b01)
             PC <= PC_next;
     end
 
