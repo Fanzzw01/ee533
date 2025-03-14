@@ -4,10 +4,10 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   13:37:55 03/02/2025
+// Create Date:   21:35:16 03/13/2025
 // Design Name:   I_MEM
-// Module Name:   E:/Documents and Settings/student/EE533_Lab7/I_MEM_tb.v
-// Project Name:  EE533_Lab7
+// Module Name:   E:/Documents and Settings/student/EE533_Lab9/I_MEM_tb.v
+// Project Name:  EE533_Lab9
 // Target Device:  
 // Tool versions:  
 // Description: 
@@ -45,7 +45,7 @@ module I_MEM_tb;
 		.douta(douta), 
 		.web(web)
 	);
-
+	
 	always #50 clka = ~clka;
 	always #50 clkb = ~clkb;
 
@@ -60,32 +60,30 @@ module I_MEM_tb;
 
 		// Wait 100 ns for global reset to finish
 		@(posedge clka);
-
+		web = 1;
         
 		// Add stimulus here
 		@(posedge clka);
-		addra = 1;
-
+		addra = 9'd0;
+		addrb = 9'd0;
+		dinb = 32'h0C010000;
+		
 		@(posedge clka);
-		addra = 2;
-
+		addra = 9'd0;
+		addrb = 9'd1;
+		dinb = 32'h04210001;
+		
 		@(posedge clka);
-		addra = 3;
-
+		addra = 9'd1;
+		addrb = 9'd2;
+		dinb = 32'h04210001;
+		
 		@(posedge clka);
-		addra = 4;
-
-		@(posedge clka);
-		addra = 5;
-
-		@(posedge clka);
-		addra = 6;
-
-		@(posedge clka);
-		addra = 7;
-
+		addra = 9'd2;
+		
 		@(posedge clka);
 		$stop;
+		
 
 	end
       
