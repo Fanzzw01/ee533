@@ -2,10 +2,10 @@
 
 module PC_plus_1
 (
-    input [63:0] PC,
-    input [63:0] ONE,
+    input [6:0] PC,
+    input [6:0] ONE,
 
-    output [63:0] PC_next
+    output [6:0] PC_next
 );
 
     assign PC_next = PC + ONE;

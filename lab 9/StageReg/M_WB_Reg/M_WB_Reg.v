@@ -5,6 +5,7 @@ module M_WB_Reg
     input clk,
     input rst,
 
+    input [1:0] thread_M,
     input NOOP_M,
     input ADDI_M,
     input MOVI_M,
@@ -20,6 +21,7 @@ module M_WB_Reg
     input [63:0] Offset_M,
     input [4:0] rt_M,
 
+    output reg [1:0] thread_WB,
     output reg NOOP_WB,
     output reg ADDI_WB,
     output reg MOVI_WB,
@@ -40,6 +42,7 @@ module M_WB_Reg
 
     always @(posedge clk) begin
         if (rst) begin
+            thread_WB <= 0;
             NOOP_WB <= 0;
             ADDI_WB <= 0;
             MOVI_WB <= 0;
@@ -54,6 +57,7 @@ module M_WB_Reg
             rt_WB <= 0;
         end
         else begin
+            thread_WB <= thread_M;
             NOOP_WB <= NOOP_M;
             ADDI_WB <= ADDI_M;
             MOVI_WB <= MOVI_M;

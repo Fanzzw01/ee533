@@ -5,6 +5,7 @@ module EX_M_Reg
     input clk,
     input rst,
 
+    input [1:0] thread_EX,
     input NOOP_EX,
     input ADDI_EX,
     input MOVI_EX,
@@ -20,6 +21,7 @@ module EX_M_Reg
     input [4:0] rt_EX,
     input [63:0] Offset_EX,
 
+    output reg [1:0] thread_M,
     output reg NOOP_M,
     output reg ADDI_M,
     output reg MOVI_M,
@@ -38,6 +40,7 @@ module EX_M_Reg
 
     always @(posedge clk) begin
         if (rst) begin
+            thread_M <= 0;
             NOOP_M <= 0;
             ADDI_M <= 0;
             MOVI_M <= 0;
@@ -54,6 +57,7 @@ module EX_M_Reg
             Offset_M <= 0;
         end
         else begin
+            thread_M <= thread_EX;
             NOOP_M <= NOOP_EX;
             ADDI_M <= ADDI_EX;
             MOVI_M <= MOVI_EX;

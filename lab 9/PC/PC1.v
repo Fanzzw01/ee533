@@ -1,19 +1,21 @@
 `timescale 1ns / 1ps
 
-module PC
+module PC1
 (
     input clk,
     input rst,
-    input [8:0] PC_next,
+    input PC_ctrl,
+    input [6:0] PC_next,
     input [1:0] thread,
+    input [1:0] thread_ID,
 
-    output reg [8:0] PC
+    output reg [6:0] PC
 );
 
     always @(posedge clk) begin
         if (rst)
-            PC <= 9'b0;
-        else if (thread == 2'b01)
+            PC <= 0;
+        else if ((thread == 2'b01) || ((thread_ID == 2'b01) && PC_ctrl))
             PC <= PC_next;
     end
 

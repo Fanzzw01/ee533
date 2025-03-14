@@ -5,6 +5,7 @@ module ID_EX_Reg
     input clk,
     input rst,
 
+    input [1:0] thread_ID,
     input [3:0] ALU_OP_ID,
     input NOOP_ID,
     input ADDI_ID,
@@ -20,6 +21,7 @@ module ID_EX_Reg
     input [4:0] rt_ID,
     input [63:0] Offset_ID,
 
+    output reg [1:0] thread_EX,
     output reg [3:0] ALU_OP_EX,
     output reg NOOP_EX,
     output reg ADDI_EX,
@@ -38,6 +40,7 @@ module ID_EX_Reg
 
     always @(posedge clk) begin
         if (rst) begin
+            thread_EX <= 0;
             ALU_OP_EX <= 0;
             NOOP_EX <= 0;
             ADDI_EX <= 0;
@@ -53,6 +56,7 @@ module ID_EX_Reg
             Offset_EX <= 0;
         end
         else begin
+            thread_EX <= thread_ID;
             ALU_OP_EX <= ALU_OP_ID;
             NOOP_EX <= NOOP_ID;
             ADDI_EX <= ADDI_ID;
