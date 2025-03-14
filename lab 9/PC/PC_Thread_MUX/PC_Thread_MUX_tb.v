@@ -4,10 +4,10 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   11:24:50 03/13/2025
+// Create Date:   16:46:34 03/13/2025
 // Design Name:   PC_Thread_MUX
-// Module Name:   E:/Documents and Settings/student/EE533_Lab9/PC_Thread_MUX_tb.v
-// Project Name:  EE533_Lab9
+// Module Name:   E:/Documents and Settings/student/EE533_Lab9/EE533_Lab_9/PC_Thread_MUX_tb.v
+// Project Name:  EE533_Lab_9
 // Target Device:  
 // Tool versions:  
 // Description: 
@@ -26,10 +26,10 @@ module PC_Thread_MUX_tb;
 
 	// Inputs
 	reg [1:0] thread;
-	reg [8:0] PC0;
-	reg [8:0] PC1;
-	reg [8:0] PC2;
-	reg [8:0] PC3;
+	reg [6:0] PC0;
+	reg [6:0] PC1;
+	reg [6:0] PC2;
+	reg [6:0] PC3;
 
 	// Outputs
 	wire [8:0] PC;
@@ -73,6 +73,7 @@ module PC_Thread_MUX_tb;
 		thread = 2'b11;
 
 		#100;
+		thread = 2'b00;
 
 		#100;
 		$stop;

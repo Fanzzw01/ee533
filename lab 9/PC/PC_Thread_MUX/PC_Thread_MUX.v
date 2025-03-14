@@ -12,9 +12,9 @@ module PC_Thread_MUX
     output [8:0] PC
 );
 
-    assign PC = (thread == 2'b00) ? thread + PC0 :
-                (thread == 2'b01) ? thread + PC1 :
-                (thread == 2'b10) ? thread + PC2 :
-                thread + PC3;
+    assign PC = (thread == 2'b00) ? {thread, PC0} :
+                (thread == 2'b01) ? {thread, PC1} :
+                (thread == 2'b10) ? {thread, PC2} :
+                {thread, PC3};
 
 endmodule

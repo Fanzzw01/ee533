@@ -74,6 +74,19 @@ module RF_DEMUX_tb;
 		thread_WB = 2'b11;
 
 		#100;
+		WRE_WB = 0;
+
+		#100;
+		thread_WB = 2'b00;
+
+		#100;
+		thread_WB = 2'b01;
+
+		#100;
+		thread_WB = 2'b10;
+
+		#100;
+		thread_WB = 2'b11;
 
 		#100;
 		$stop;

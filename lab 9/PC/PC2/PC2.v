@@ -15,7 +15,7 @@ module PC2
     always @(posedge clk) begin
         if (rst)
             PC <= 0;
-        else if ((thread == 2'b10) || ((thread == 2'b10) && PC_ctrl))
+        else if ((thread == 2'b10) || ((thread_ID == 2'b10) && PC_ctrl))
             PC <= PC_next;
     end
 

@@ -18,9 +18,9 @@ module RF_DEMUX
 
     assign waddr_DEMUX_out = waddr;
     assign wdata_DEMUX_out = wdata;
-    assign RF0_WRE_WB = (thread_WB == 2'b00) ? 1 : 0;
-    assign RF1_WRE_WB = (thread_WB == 2'b01) ? 1 : 0;
-    assign RF2_WRE_WB = (thread_WB == 2'b10) ? 1 : 0;
-    assign RF3_WRE_WB = (thread_WB == 2'b11) ? 1 : 0;
+    assign RF0_WRE_WB = ((thread_WB == 2'b00) && WRE_WB) ? 1 : 0;
+    assign RF1_WRE_WB = ((thread_WB == 2'b01) && WRE_WB) ? 1 : 0;
+    assign RF2_WRE_WB = ((thread_WB == 2'b10) && WRE_WB) ? 1 : 0;
+    assign RF3_WRE_WB = ((thread_WB == 2'b11) && WRE_WB) ? 1 : 0;
 
 endmodule
