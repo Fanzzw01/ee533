@@ -1,0 +1,11 @@
+# Output products list for <D_MEM>
+D_MEM.asy
+D_MEM.ngc
+D_MEM.sym
+D_MEM.v
+D_MEM.veo
+D_MEM.vhd
+D_MEM.vho
+D_MEM.xco
+D_MEM_flist.txt
+D_MEM_xmdf.tcl
