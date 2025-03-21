@@ -103,6 +103,10 @@ for i in range(num_images):
     axes[i].set_title(f"Pred: {predicted_digit}\nActual: {digits.target[original_idx]}")
     axes[i].axis("off")
 
+    # Print out the image into 64-bit value
+    print("64-bit input vector:\n")
+    print(X_test[rand_idx])
+
 plt.tight_layout()
 plt.show()
 
