@@ -1562,7 +1562,7 @@ endmodule
 ### 2.4 Thread 2
 
 * Purpose
-  * Load word third element and forth element, if third element >= forth element, then swap them; otherwise don't do anything.
+  * Load word third element and forth element, if third element > forth element, then swap them; otherwise don't do anything.
 * Instruction Table
 
 | Addr |  Label  |        Instr        | OP Code [31:26] | Rs [25:21] | Rt [20:16] | Offset [15:0] |

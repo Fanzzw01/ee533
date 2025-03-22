@@ -2,7 +2,522 @@
 
 ## 1. Verilog code for each unit
 
+### 1.1 neurons_hidden
 
+* Verilog
+
+```verilog
+`timescale 1ns / 1ps
+
+module neurons_hidden
+(
+    input clk,
+    input rst,
+    input wen,
+    input en,
+    input [15:0] weight_in,
+    input [5:0] weight_addr,
+    input [63:0] image,
+
+    output reg [15:0] neurons_output
+);
+
+    reg [15:0] weight [63:0];
+    reg [15:0] sum;
+    integer i;
+
+    always @(posedge clk) begin
+        if (rst) begin
+            sum <= 16'b0;
+            neurons_output <= 16'b0;
+            for (i = 0; i < 64; i = i + 1) begin
+                weight[i] <= 16'b0;
+            end
+        end
+        else if (wen) begin
+            weight[weight_addr] <= weight_in;
+        end
+        else if (en) begin
+            sum <= 16'b0;
+            for (i = 0; i < 64; i = i + 1) begin
+                sum = sum + ((image[i]) ? weight[i] : 16'b0); 
+            end
+            neurons_output <= sum;
+        end
+    end
+
+endmodule
+```
+
+* Testbench
+
+```verilog
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   14:59:51 03/21/2025
+// Design Name:   neurons_hidden
+// Module Name:   E:/Documents and Settings/student/EE533_Lab10/neurons_hidden_tb.v
+// Project Name:  EE533_Lab10
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: neurons_hidden
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module neurons_hidden_tb;
+
+	// Inputs
+	reg clk;
+	reg rst;
+	reg wen;
+	reg en;
+	reg [15:0] weight_in;
+	reg [5:0] weight_addr;
+	reg [63:0] image;
+
+	// Outputs
+	wire [15:0] neurons_output;
+
+	// Instantiate the Unit Under Test (UUT)
+	neurons_hidden uut (
+		.clk(clk), 
+		.rst(rst), 
+		.wen(wen), 
+		.en(en),
+		.weight_in(weight_in), 
+		.weight_addr(weight_addr), 
+		.image(image), 
+		.neurons_output(neurons_output)
+	);
+
+	always #50 clk = ~clk;
+
+	initial begin
+		// Initialize Inputs
+		clk = 1;
+		rst = 1;
+		wen = 0;
+		en = 0;
+		weight_in = 0;
+		weight_addr = 0;
+		image = 0;
+
+		// Wait 100 ns for global reset to finish
+		@(posedge clk);
+        
+		// Add stimulus here
+		rst = 0;
+		wen = 1;
+		weight_addr = 6'd0;  weight_in = 16'h2c72; @(posedge clk);
+		weight_addr = 6'd1;  weight_in = 16'h2932; @(posedge clk);
+		weight_addr = 6'd2;  weight_in = 16'he4e3; @(posedge clk);
+		weight_addr = 6'd3;  weight_in = 16'he49f; @(posedge clk);
+		weight_addr = 6'd4;  weight_in = 16'hedb5; @(posedge clk);
+		weight_addr = 6'd5;  weight_in = 16'he6a1; @(posedge clk);
+		weight_addr = 6'd6;  weight_in = 16'hd3f4; @(posedge clk);
+		weight_addr = 6'd7;  weight_in = 16'h3b55; @(posedge clk);
+		weight_addr = 6'd8;  weight_in = 16'h21c4; @(posedge clk);
+		weight_addr = 6'd9;  weight_in = 16'heccd; @(posedge clk);
+		weight_addr = 6'd10; weight_in = 16'hd5a7; @(posedge clk);
+		weight_addr = 6'd11; weight_in = 16'hd6c1; @(posedge clk);
+		weight_addr = 6'd12; weight_in = 16'hdaac; @(posedge clk);
+		weight_addr = 6'd13; weight_in = 16'hecc7; @(posedge clk);
+		weight_addr = 6'd14; weight_in = 16'hd977; @(posedge clk);
+		weight_addr = 6'd15; weight_in = 16'h3a2c; @(posedge clk);
+		weight_addr = 6'd16; weight_in = 16'heef2; @(posedge clk);
+		weight_addr = 6'd17; weight_in = 16'hda95; @(posedge clk);
+		weight_addr = 6'd18; weight_in = 16'h3a50; @(posedge clk);
+		weight_addr = 6'd19; weight_in = 16'h3a25; @(posedge clk);
+		weight_addr = 6'd20; weight_in = 16'h3a10; @(posedge clk);
+		weight_addr = 6'd21; weight_in = 16'hd73b; @(posedge clk);
+		weight_addr = 6'd22; weight_in = 16'h3a3e; @(posedge clk);
+		weight_addr = 6'd23; weight_in = 16'h21f0; @(posedge clk);
+		weight_addr = 6'd24; weight_in = 16'h3a11; @(posedge clk);
+		weight_addr = 6'd25; weight_in = 16'h2a80; @(posedge clk);
+		weight_addr = 6'd26; weight_in = 16'h3a15; @(posedge clk);
+		weight_addr = 6'd27; weight_in = 16'h2b4d; @(posedge clk);
+		weight_addr = 6'd28; weight_in = 16'he4c2; @(posedge clk);
+		weight_addr = 6'd29; weight_in = 16'heea3; @(posedge clk);
+		weight_addr = 6'd30; weight_in = 16'h2d35; @(posedge clk);
+		weight_addr = 6'd31; weight_in = 16'h3b80; @(posedge clk);
+		weight_addr = 6'd32; weight_in = 16'h3b15; @(posedge clk);
+		weight_addr = 6'd33; weight_in = 16'h3b40; @(posedge clk);
+		weight_addr = 6'd34; weight_in = 16'hdaad; @(posedge clk);
+		weight_addr = 6'd35; weight_in = 16'h3a80; @(posedge clk);
+		weight_addr = 6'd36; weight_in = 16'h3a92; @(posedge clk);
+		weight_addr = 6'd37; weight_in = 16'h3ab0; @(posedge clk);
+		weight_addr = 6'd38; weight_in = 16'hd9f2; @(posedge clk);
+		weight_addr = 6'd39; weight_in = 16'hdc34; @(posedge clk);
+		weight_addr = 6'd40; weight_in = 16'h3a50; @(posedge clk);
+		weight_addr = 6'd41; weight_in = 16'hd5d0; @(posedge clk);
+		weight_addr = 6'd42; weight_in = 16'hd8b0; @(posedge clk);
+		weight_addr = 6'd43; weight_in = 16'h3a1f; @(posedge clk);
+		weight_addr = 6'd44; weight_in = 16'hd8d5; @(posedge clk);
+		weight_addr = 6'd45; weight_in = 16'hd7b4; @(posedge clk);
+		weight_addr = 6'd46; weight_in = 16'hd7e0; @(posedge clk);
+		weight_addr = 6'd47; weight_in = 16'h3f90; @(posedge clk);
+		weight_addr = 6'd48; weight_in = 16'h3c80; @(posedge clk);
+		weight_addr = 6'd49; weight_in = 16'h3a3d; @(posedge clk);
+		weight_addr = 6'd50; weight_in = 16'h3aa0; @(posedge clk);
+		weight_addr = 6'd51; weight_in = 16'h3b02; @(posedge clk);
+		weight_addr = 6'd52; weight_in = 16'h3ac0; @(posedge clk);
+		weight_addr = 6'd53; weight_in = 16'h3c50; @(posedge clk);
+		weight_addr = 6'd54; weight_in = 16'h3a4d; @(posedge clk);
+		weight_addr = 6'd55; weight_in = 16'h3b65; @(posedge clk);
+		weight_addr = 6'd56; weight_in = 16'h2d20; @(posedge clk);
+		weight_addr = 6'd57; weight_in = 16'h0000; @(posedge clk);
+		weight_addr = 6'd58; weight_in = 16'hedbf; @(posedge clk);
+		weight_addr = 6'd59; weight_in = 16'heed8; @(posedge clk);
+		weight_addr = 6'd60; weight_in = 16'h3c10; @(posedge clk);
+		weight_addr = 6'd61; weight_in = 16'h3b05; @(posedge clk);
+		weight_addr = 6'd62; weight_in = 16'h3a9f; @(posedge clk);
+		weight_addr = 6'd63; weight_in = 16'h3a80; @(posedge clk);
+
+		wen = 0;
+		weight_addr = 6'd0; weight_in = 16'h0000;
+		@(posedge clk);
+
+		en = 1;
+		image = 64'h1830403030303c1c; @(posedge clk);
+		image = 64'h201000e080c0f0f0; @(posedge clk);
+		image = 64'h103010306030f0f0; @(posedge clk);
+		image = 64'h20203c5020606060; @(posedge clk);
+		image = 64'h7030281078d87060; @(posedge clk);
+		image = 64'h7030281078d87060; @(posedge clk);
+		image = 64'h70a0908010d0f010; @(posedge clk);
+		image = 64'h3038383e30f01060; @(posedge clk);
+		image = 64'h303e3e6c6c58b030; @(posedge clk);
+		image = 64'h04040404143c0c04; @(posedge clk);
+
+		@(posedge clk);
+		$stop;
+
+	end
+      
+endmodule
+```
+
+* Waveform
+
+![Screenshot 2025-03-22 160440](Pic\Screenshot 2025-03-22 160440.png)
+
+* Image Input
+
+```
+64'h1830403030303c1c;
+64'h201000e080c0f0f0;
+64'h103010306030f0f0;
+64'h20203c5020606060;
+64'h7030281078d87060;
+64'h7030281078d87060;
+64'h70a0908010d0f010;
+64'h3038383e30f01060;
+64'h303e3e6c6c58b030;
+64'h04040404143c0c04;
+```
+
+* Weights in neurons_hidden_0
+
+```
+	16'h2c72, 16'h2932, 16'he4e3, 16'he49f, 16'hedb5, 16'he6a1, 16'hd3f4, 16'h3b55,
+	16'h21c4, 16'heccd, 16'hd5a7, 16'hd6c1, 16'hdaac, 16'hecc7, 16'hd977, 16'h3a2c,
+	16'heef2, 16'hda95, 16'h3a50, 16'h3a25, 16'h3a10, 16'hd73b, 16'h3a3e, 16'h21f0,
+	16'h3a11, 16'h2a80, 16'h3a15, 16'h2b4d, 16'he4c2, 16'heea3, 16'h2d35, 16'h3b80,
+	16'h3b15, 16'h3b40, 16'hdaad, 16'h3a80, 16'h3a92, 16'h3ab0, 16'hd9f2, 16'hdc34,
+	16'h3a50, 16'hd5d0, 16'hd8b0, 16'h3a1f, 16'hd8d5, 16'hd7b4, 16'hd7e0, 16'h3f90,
+	16'h3c80, 16'h3a3d, 16'h3aa0, 16'h3b02, 16'h3ac0, 16'h3c50, 16'h3a4d, 16'h3b65,
+	16'h2d20, 16'h0000, 16'hedbf, 16'heed8, 16'h3c10, 16'h3b05, 16'h3a9f, 16'h3a80
+```
+
+* Weights in neurons_hidden_1
+
+```
+	16'hf99e, 16'hf7fe, 16'hd1aa, 16'h3af8, 16'hf9d9, 16'hf89f, 16'h3a90, 16'h3a40,
+	16'hf9a9, 16'h3a60, 16'h3a04, 16'h3a10, 16'h3a80, 16'hf89d, 16'h3a20, 16'hf8f0,
+	16'hf8f4, 16'hd1a2, 16'hf95e, 16'hf9fe, 16'hc1c5, 16'hf9f1, 16'hf8d4, 16'h3a40,
+	16'hf9e2, 16'hf7e1, 16'h3a10, 16'hf8d2, 16'hf9a1, 16'hf901, 16'h3b90, 16'hf9fd,
+	16'hf9f9, 16'h3b50, 16'h3a90, 16'h3ab4, 16'hf8c8, 16'h3a30, 16'hf8d6, 16'h3a50,
+	16'h3a20, 16'h3a80, 16'h3a10, 16'h3a50, 16'h3a60, 16'hf9e4, 16'h3a70, 16'hf8e0,
+	16'h3a90, 16'hf8d0, 16'h3a40, 16'h3aa0, 16'h3a90, 16'h3ab0, 16'h3a20, 16'h3a50,
+	16'hf9f0, 16'hf9f0, 16'hf8d0, 16'hf8d0, 16'h3aa0, 16'h3ab0, 16'h3a50, 16'h3a80
+```
+
+* Weights in neurons_hidden_2
+
+```
+	16'hf9f2, 16'hf8e4, 16'h2b20, 16'h3a50, 16'h2b10, 16'hf8c0, 16'h3b10, 16'hf7f0,
+	16'hf8d4, 16'h3a70, 16'h3a90, 16'hf8b0, 16'h3a20, 16'h3a10, 16'hf8d0, 16'h3a00,
+	16'h3a40, 16'h3a10, 16'h3a20, 16'hd1a0, 16'hf9c0, 16'h3a10, 16'hf8d0, 16'h3a00,
+	16'hf8e4, 16'hf7f8, 16'h3a10, 16'hf8c0, 16'hf9a8, 16'hf9d0, 16'h3a70, 16'hf8e0,
+	16'h3a20, 16'h3a90, 16'hf9c8, 16'h3a10, 16'hf8e0, 16'h3a50, 16'h3a40, 16'hf8c0,
+	16'h3a10, 16'h3a30, 16'h3a40, 16'h3a50, 16'h3a60, 16'h3a20, 16'h3a10, 16'h3a50,
+	16'hf8e0, 16'h3a10, 16'hf8d0, 16'h3a20, 16'hf8c0, 16'h3a10, 16'h3a30, 16'h3a40,
+	16'hf9e0, 16'h3a10, 16'h3a20, 16'h3a30, 16'h3a40, 16'h3a50, 16'h3a60, 16'hf9d0
+```
+
+### 1.2 ReLu
+
+* Verilog
+
+```verilog
+`timescale 1ns / 1ps
+
+module ReLu
+(
+    input [15:0] neurons_1,
+    input [15:0] neurons_2,
+    input [15:0] neurons_3,
+
+    output [15:0] neurons_1_out,
+    output [15:0] neurons_2_out,
+    output [15:0] neurons_3_out
+);
+
+    assign neurons_1_out = (neurons_1[15] == 1'b1) ? 16'b0 : neurons_1;
+    assign neurons_2_out = (neurons_2[15] == 1'b1) ? 16'b0 : neurons_2;
+    assign neurons_3_out = (neurons_3[15] == 1'b1) ? 16'b0 : neurons_3;
+
+endmodule
+```
+
+* Testbench
+
+```verilog
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   14:50:19 03/21/2025
+// Design Name:   ReLu
+// Module Name:   E:/Documents and Settings/student/EE533_Lab10/ReLu_tb.v
+// Project Name:  EE533_Lab10
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: ReLu
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module ReLu_tb;
+
+	// Inputs
+	reg [15:0] neurons_1;
+	reg [15:0] neurons_2;
+	reg [15:0] neurons_3;
+
+	// Instantiate the Unit Under Test (UUT)
+	ReLu uut (
+		.neurons_1(neurons_1), 
+		.neurons_2(neurons_2),
+		.neurons_3(neurons_3)
+	);
+
+	initial begin
+		// Initialize Inputs
+		neurons_1 = 0;
+		neurons_2 = 0;
+		neurons_3 = 0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+		// Add stimulus here
+		neurons_1 = 16'hC3A0; neurons_2 = 16'hC3A0; neurons_3 = 16'h3C30; #100;
+		neurons_1 = 16'h0000; neurons_2 = 16'h0000; neurons_3 = 16'h0000; #100;
+		neurons_1 = 16'hC4F0; neurons_2 = 16'hC58E; neurons_3 = 16'h3DDC; #100;
+
+		$stop;
+
+	end
+      
+endmodule
+```
+
+* Waveform
+
+![Screenshot 2025-03-22 142456](Pic\Screenshot 2025-03-22 142456.png)
+
+### 1.3 neurons_output
+
+* Verilog
+
+```verilog
+`timescale 1ns / 1ps
+
+module neurons_output
+(
+    input clk,
+    input rst,
+    input wen,
+    input en,
+    input [15:0] weight_in,
+    input [1:0] weight_addr,
+
+    input [15:0] ReLu_1,
+    input [15:0] ReLu_2,
+    input [15:0] ReLu_3,
+
+    output reg [15:0] Prediction_score
+);
+
+    reg [15:0] weight [2:0];
+    integer i;
+
+    always @(posedge clk) begin
+        if (rst) begin
+            Prediction_score <= 16'b0;
+            for (i = 0; i < 3; i = i + 1) begin
+                weight[i] <= 16'b0;
+            end
+        end
+        else if (wen) begin
+            weight[weight_addr] <= weight_in;
+        end
+        else if (en) begin
+            Prediction_score <= ReLu_1 * weight[0] + ReLu_2 * weight[1] + ReLu_3 * weight[2];
+        end
+    end
+
+endmodule
+```
+
+* Testbench
+
+```verilog
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   15:38:04 03/21/2025
+// Design Name:   neurons_output
+// Module Name:   E:/Documents and Settings/student/EE533_Lab10/neurons_output_tb.v
+// Project Name:  EE533_Lab10
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: neurons_output
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module neurons_output_tb;
+
+	// Inputs
+	reg clk;
+	reg rst;
+	reg wen;
+	reg en;
+	reg [15:0] weight_in;
+	reg [1:0] weight_addr;
+	reg [15:0] ReLu_1;
+	reg [15:0] ReLu_2;
+	reg [15:0] ReLu_3;
+
+	// Outputs
+	wire [15:0] Prediction_score;
+
+	// Instantiate the Unit Under Test (UUT)
+	neurons_output uut (
+		.clk(clk), 
+		.rst(rst), 
+		.wen(wen), 
+		.en(en),
+		.weight_in(weight_in), 
+		.weight_addr(weight_addr), 
+		.ReLu_1(ReLu_1), 
+		.ReLu_2(ReLu_2), 
+		.ReLu_3(ReLu_3), 
+		.Prediction_score(Prediction_score)
+	);
+
+	always #50 clk = ~clk;
+
+	initial begin
+		// Initialize Inputs
+		clk = 1;
+		rst = 1;
+		wen = 0;
+		en = 0;
+		weight_in = 0;
+		weight_addr = 0;
+		ReLu_1 = 0;
+		ReLu_2 = 0;
+		ReLu_3 = 0;
+
+		// Wait 100 ns for global reset to finish
+		@(posedge clk);
+        
+		// Add stimulus here
+		rst = 0;
+		wen = 1;
+		weight_addr = 2'd0; weight_in = 16'hb820; @(posedge clk);
+		weight_addr = 2'd1; weight_in = 16'h3d26; @(posedge clk);
+		weight_addr = 2'd2; weight_in = 16'h3d92; @(posedge clk);
+
+		wen = 0;
+		weight_addr = 2'd0; weight_in = 16'h0000; @(posedge clk);
+		
+		en = 1;
+		weight_addr = 2'd0; weight_in = 16'h0000;
+		ReLu_1 = 16'h0000; ReLu_2 = 16'h0000; ReLu_3 = 16'h3c30; @(posedge clk);
+		ReLu_1 = 16'h0000; ReLu_2 = 16'h0000; ReLu_3 = 16'h0000; @(posedge clk);
+		ReLu_1 = 16'h0000; ReLu_2 = 16'h0000; ReLu_3 = 16'h3ddc; @(posedge clk);
+
+		@(posedge clk);
+		$stop;
+
+	end
+      
+endmodule
+```
+
+* Waveform
+
+![Screenshot 2025-03-22 160518](Pic\Screenshot 2025-03-22 160518.png)
+
+* Weights in ten neurons output unit, each contains 3 elements (in one row)
+
+```
+16'hb820, 16'h3d26, 16'h3d92;
+16'h4240, 16'hbd6a, 16'hbc4a;
+16'h3d90, 16'hbdc0, 16'h3b98;
+16'hbb00, 16'hbcf2, 16'h3d98;
+16'h3b80, 16'h3ce4, 16'hc5f2;
+16'hbd2e, 16'h3c20, 16'h3d4a;
+16'h3d88, 16'h3a00, 16'hac00;
+16'hbd80, 16'h4280, 16'hbc9a;
+16'h3da0, 16'hbc52, 16'h3280;
+16'hbbd0, 16'h3380, 16'h3cfe;
+```
 
 ## 2. Software Training Process
 
@@ -49,7 +564,7 @@ Requirement already satisfied: MarkupSafe>=2.0 in ./ann_env/lib/python3.13/site-
 
 * Screenshot
 
-![Screenshot 2025-03-21 at 2.27.43 PM](/Users/clint/Documents/ee533/lab 10/Pic/Screenshot 2025-03-21 at 2.27.43 PM.png)
+![Screenshot 2025-03-21 at 2.27.43 PM](/Pic/Screenshot 2025-03-21 at 2.27.43 PM.png)
 
 #### 2.1.2 Modified part for ann.py
 
@@ -134,11 +649,11 @@ Output layer weights saved to output_weights.txt (float16 in text form).
 
 * Screenshot
 
-![Screenshot 2025-03-21 at 2.30.52 PM](/Users/clint/Documents/ee533/lab 10/Pic/Screenshot 2025-03-21 at 2.30.52 PM.png)
+![Screenshot 2025-03-21 at 2.30.52 PM](/Pic/Screenshot 2025-03-21 at 2.30.52 PM.png)
 
 * Output Figure
 
-![Figure_1](/Users/clint/Documents/ee533/lab 10/Pic/Figure_1.png)
+![Figure_1](/Pic/Figure_1.png)
 
 * Output txt file
 
