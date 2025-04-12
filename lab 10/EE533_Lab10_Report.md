@@ -1559,6 +1559,115 @@ module NPU_tb;
 endmodule
 ```
 
+```
+always #50 clk = ~clk;
+
+    initial begin
+        clk = 1;
+        en = 0;
+        image_in = 0;
+        image_load = 0;
+        rst = 1;
+        weight_in = 0;
+        weight_wen = 0;
+        @(posedge clk);
+
+        rst = 0;
+        weight_wen = 1;
+        weight_in = 1024'h3a80_3a9f_3b05_3c10_eed8_edbf_0000_2d20_3b65_3a4d_3c50_3ac0_3b02_3aa0_3a3d_3c80_3f90_d7e0_d7b4_d8d5_3a1f_d8b0_d5d0_3a50_dc34_d9f2_3ab0_3a92_3a80_daad_3b40_3b15_3b80_2d35_eea3_e4c2_2b4d_3a15_2a80_3a11_21f0_3a3e_d73b_3a10_3a25_3a50_da95_eef2_3a2c_d977_ecc7_daac_d6c1_d5a7_eccd_21c4_3b55_d3f4_e6a1_edb5_e49f_e4e3_2932_2c72;
+        @(posedge clk);
+
+        weight_wen = 0;
+        image_load = 1;
+        image_in = 64'h1830403030303c1c;
+        @(posedge clk);
+
+        image_load = 0;
+        en = 1;
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        $stop;
+    end
+```
+
+
+
+| A (fp16) | A decimal | B (fp16) | B decimal | Sum (fp16) | Sum decimal |
+| :------: | :-------: | :------: | :-------: | :--------: | :---------: |
+| 16'h3c00 |    1.0    | 16'h3400 |   0.25    |  16'h3d00  |    1.25     |
+| 16'h3800 |    0.5    | 16'h3800 |    0.5    |  16'h3c00  |      1      |
+| 16'h4000 |    2.0    | 16'h4000 |    2.0    |  16'h4400  |     4.0     |
+| 16'h0000 |    0.0    | 16'h3c00 |    1.0    |  16'h3c00  |     1.0     |
+| 16'h3c00 |    1.0    | 16'h3c00 |    1.0    |  16'h4000  |     2.0     |
+| 16'h2c72 | ~0.11346  | 16'h2932 | ~0.04938  |  16'h2f0b  |  ~0.16284   |
+
+
+
 ## 4. GitHub Link
 
 * https://github.com/Fanzzw01/ee533.git

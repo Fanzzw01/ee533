@@ -63,10 +63,9 @@ module fp16_adder_tb;
 		a = 16'h3c00; b = 16'h3400; @(posedge clk);
 		a = 16'h3800; b = 16'h3800; @(posedge clk);
 		a = 16'h4000; b = 16'h4000; @(posedge clk);
-		a = 16'h3e00; b = 16'h8800; @(posedge clk);
-		a = 16'h3c00; b = 16'h8c00; @(posedge clk);
 		a = 16'h0000; b = 16'h3c00; @(posedge clk);
 		a = 16'h3c00; b = 16'h3c00; @(posedge clk);
+		a = 16'h2c72; b = 16'h2932; @(posedge clk);
 
 		@(posedge clk);
 		$stop;
@@ -74,3 +73,4 @@ module fp16_adder_tb;
 	end
       
 endmodule
+

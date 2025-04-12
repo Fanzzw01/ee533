@@ -1,12 +1,11 @@
 `timescale 1ns / 1ps
 
-module fp16_adder
+module fp16_acculumator
 (
     input clk,
     input rst,
     input en,
     input [15:0] a,
-    input [15:0] b,
 
     output reg [15:0] sum
 );
@@ -35,9 +34,9 @@ module fp16_adder
             exp_a = a[14:10];
             frac_a = a[9:0];
 
-            sign_b = b[15];
-            exp_b = b[14:10];
-            frac_b = b[9:0];
+            sign_b = sum[15];
+            exp_b = sum[14:10];
+            frac_b = sum[9:0];
 
             mant_a = (exp_a != 0) ? {1'b1, frac_a} : {1'b0, frac_a};
             mant_b = (exp_b != 0) ? {1'b1, frac_b} : {1'b0, frac_b};
