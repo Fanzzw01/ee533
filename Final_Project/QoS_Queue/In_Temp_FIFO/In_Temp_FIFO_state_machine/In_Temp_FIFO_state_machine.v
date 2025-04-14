@@ -11,6 +11,7 @@ module In_Temp_FIFO_state_machine
     input [7:0] RP,
     input pkt_begin,
     input pkt_end,
+    input [7:0] depth,
 
     output reg [7:0] RP_plus_3,
     output FIFO_IN,
@@ -26,13 +27,12 @@ module In_Temp_FIFO_state_machine
     always @(posedge clk) begin
         if (rst) begin
             current_state <= FIFO_in;
-            RP_plus_3 <= 8'b0;
         end
         else begin
-            if (current_state == FIFO_in && pkt_end) begin
+            current_state <= next_state;
+            if (current_state == FIFO_in && depth == 8'd3) begin
                 RP_plus_3 <= RP + 8'd3;
             end
-            current_state <= next_state;
         end
     end
 

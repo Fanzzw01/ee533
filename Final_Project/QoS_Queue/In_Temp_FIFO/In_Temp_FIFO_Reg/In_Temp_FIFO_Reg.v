@@ -13,13 +13,21 @@ module In_Temp_FIFO_Reg
     output [31:0] source_IP
 );
 
+    integer i;
     reg [31:0] pkt_temp [255:0];
 
     assign source_IP = pkt_temp[RP_plus_3];
     assign pkt_out = pkt_temp[RP];
 
     always @(posedge clk) begin
-        pkt_temp[WP] <= pkt_in;
+        if (rst) begin
+            for (i = 0; i < 256; i = i + 1) begin
+                pkt_temp[i] <= 32'b0;
+            end
+        end
+        else begin
+            pkt_temp[WP] <= pkt_in;
+        end
     end
 
 endmodule

@@ -47,13 +47,15 @@ module In_Temp_FIFO_demo(clk,
    wire [7:0] RP_plus_3;
    wire [7:0] WP;
    wire FIFO_OUT_DUMMY;
+   wire [7:0] depth_DMUUY;
    
    assign FIFO_OUT = FIFO_OUT_DUMMY;
+   assign depth = depth_DMUUY;
    In_Temp_FIFO_CU XLXI_2 (.clk(clk), 
                            .RP(RP[7:0]), 
                            .rst(rst), 
                            .WP(WP[7:0]), 
-                           .depth(depth[7:0]), 
+                           .depth(depth_DMUUY[7:0]), 
                            .FIFO_EMPTY(FIFO_EMPTY), 
                            .FIFO_FULL(FIFO_FULL));
    In_Temp_FIFO_RP XLXI_3 (.clk(clk), 
@@ -73,7 +75,8 @@ module In_Temp_FIFO_demo(clk,
                                       .rst(rst), 
                                       .FIFO_IN(FIFO_IN), 
                                       .FIFO_OUT(FIFO_OUT_DUMMY), 
-                                      .RP_plus_3(RP_plus_3[7:0]));
+                                      .RP_plus_3(RP_plus_3[7:0]),
+                                      .depth(depth_DMUUY[7:0]));
    In_Temp_FIFO_Reg XLXI_6 (.clk(clk), 
                             .pkt_in(pkt_in[31:0]), 
                             .RP(RP[7:0]), 

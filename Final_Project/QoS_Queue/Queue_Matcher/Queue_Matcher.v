@@ -10,19 +10,21 @@ module Queue_Matcher
     input fifo_out,
     input [31:0] fifo_temp_source_ip,
 
-    output match
+    output reg match
 );
 
     integer i;
     reg [31:0] defined_source_ip [3:0];
 
-    assign match = (fifo_out == 1) &&
+    always @(*) begin
+        match = (fifo_out == 1) &&
                     (
                         (defined_source_ip[0] == fifo_temp_source_ip) ||
                         (defined_source_ip[1] == fifo_temp_source_ip) ||
                         (defined_source_ip[2] == fifo_temp_source_ip) ||
                         (defined_source_ip[3] == fifo_temp_source_ip)
                     );
+    end
 
     always @(posedge clk) begin
         if (rst) begin
