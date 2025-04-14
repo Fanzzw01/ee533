@@ -13,10 +13,7 @@ module Queue_state_machine
     input clk,
     input rst,
     input FIFO_out_state,
-    input QUEUE_FULL,
     input match,
-    input [2:0] depth_outer,
-    input [8:0] depth_inner [3:0],
     input pkt_end,
     input queue_out_en,
     input [1:0] WP_outer, RP_outer,
@@ -213,6 +210,9 @@ module Queue_state_machine
                 end
                 else if (inner_current_state[RP_outer] == INNER_OUT_STATE && inner_FIFO_empty[RP_outer]) begin
                     outer_next_state = OUTER_OUT_STATE;
+                end
+                else begin
+                    outer_next_state = OUTER_STALL_STATE;
                 end
             end
             OUTER_IN_STATE: begin

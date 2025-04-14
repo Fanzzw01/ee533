@@ -28,8 +28,7 @@ module Queue_Matcher_tb;
 	reg clk;
 	reg rst;
 	reg defined_source_ip_wen;
-	reg [31:0] defined_source_ip_in;
-	reg [1:0] defined_source_ip_addr;
+	reg [127:0] defined_source_ip_in;
 	reg fifo_out;
 	reg [31:0] fifo_temp_source_ip;
 
@@ -42,7 +41,6 @@ module Queue_Matcher_tb;
 		.rst(rst), 
 		.defined_source_ip_wen(defined_source_ip_wen), 
 		.defined_source_ip_in(defined_source_ip_in), 
-		.defined_source_ip_addr(defined_source_ip_addr), 
 		.fifo_out(fifo_out), 
 		.fifo_temp_source_ip(fifo_temp_source_ip), 
 		.match(match)
@@ -56,7 +54,6 @@ module Queue_Matcher_tb;
 		rst = 1;
 		defined_source_ip_wen = 0;
 		defined_source_ip_in = 0;
-		defined_source_ip_addr = 0;
 		fifo_out = 0;
 		fifo_temp_source_ip = 0;
 
@@ -65,20 +62,7 @@ module Queue_Matcher_tb;
 		// Add stimulus here
 		rst = 0;
 		defined_source_ip_wen = 1;
-		defined_source_ip_addr = 2'b00;
-		defined_source_ip_in = 32'd24;
-		@(posedge clk);
-
-		defined_source_ip_addr = 2'b01;
-		defined_source_ip_in = 32'd25;
-		@(posedge clk);
-
-		defined_source_ip_addr = 2'b10;
-		defined_source_ip_in = 32'd89;
-		@(posedge clk);
-
-		defined_source_ip_addr = 2'b11;
-		defined_source_ip_in = 32'd3;
+		defined_source_ip_in = 128'h00000003000000590000001900000018;
 		@(posedge clk);
 
 		defined_source_ip_wen = 0;

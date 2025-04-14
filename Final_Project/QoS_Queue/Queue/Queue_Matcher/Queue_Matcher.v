@@ -1,20 +1,23 @@
 `timescale 1ns / 1ps
 
 module Queue_Matcher
+# (
+    parameter IP_LENGTH = 32,
+    parameter MATCHER_REG_NUMBER = 4
+)
 (
     input clk,
     input rst,
     input defined_source_ip_wen,
-    input [31:0] defined_source_ip_in,
-    input [1:0] defined_source_ip_addr,
+    input [IP_LENGTH * MATCHER_REG_NUMBER - 1:0] defined_source_ip_in,
     input fifo_out,
-    input [31:0] fifo_temp_source_ip,
+    input [IP_LENGTH - 1:0] fifo_temp_source_ip,
 
     output reg match
 );
 
     integer i;
-    reg [31:0] defined_source_ip [3:0];
+    reg [IP_LENGTH - 1:0] defined_source_ip [MATCHER_REG_NUMBER - 1:0];
 
     always @(*) begin
         match = (fifo_out == 1) &&
@@ -33,7 +36,9 @@ module Queue_Matcher
             end
         end
         else if (defined_source_ip_wen) begin
-            defined_source_ip[defined_source_ip_addr] <= defined_source_ip_in;
+            for (i = 0; i < 4; i = i + 1) begin
+                defined_source_ip[i] <= defined_source_ip_in[i * 32 +: 32];
+            end
         end
     end
 
