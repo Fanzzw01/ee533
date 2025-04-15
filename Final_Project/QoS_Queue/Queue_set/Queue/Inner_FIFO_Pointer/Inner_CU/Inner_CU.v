@@ -15,7 +15,8 @@ module Inner_CU #(
 
     output [8:0] depth,
     output WP_en,
-    output RP_en
+    output RP_en,
+    output FIFO_EMPTY_out
 );
 
     reg FIFO_almost_full;
@@ -29,6 +30,8 @@ module Inner_CU #(
 
     assign WP_en = inner_queue_in && ~FIFO_FULL;
     assign RP_en = inner_queue_out && ~FIFO_EMPTY;
+
+    assign FIFO_EMPTY_out = FIFO_EMPTY;
 
     always @(posedge clk) begin
         if (rst) begin

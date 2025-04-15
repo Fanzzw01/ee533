@@ -15,14 +15,16 @@ module Queue_Reg
     integer i;
     reg [31:0] queue_reg [1023:0];
 
+    assign fifo_out = queue_reg[RP_total];
+
     always @(posedge clk) begin
         if (rst) begin
             for (i = 0; i < 1024; i = i + 1) begin
                 queue_reg[i] <= 32'b0;
             end
-            else if (fifo_wen) begin
-                queue_reg[WP_total] <= fifo_in;
-            end
+        end
+        else if (fifo_wen) begin
+            queue_reg[WP_total] <= fifo_in;
         end
     end
 

@@ -23,8 +23,8 @@ module Outer_CU # (
     wire OUTER_FIFO_FULL;
     wire OUTER_FIFO_EMPTY;
 
-    assign OUTER_FIFO_EMPTY = (WP == RP) && FIFO_almost_empty;
-    assign OUTER_FIFO_FULL = (WP == RP) && FIFO_almost_full;
+    assign OUTER_FIFO_EMPTY = (WP == RP) && Outer_Queue_almost_empty;
+    assign OUTER_FIFO_FULL = (WP == RP) && Outer_Queue_almost_full;
     assign outer_depth = (WP >= RP) ? (WP - RP) : (WP - RP + FIFO_SIZE);
 
     assign WP_en = outer_queue_in && ~OUTER_FIFO_FULL;

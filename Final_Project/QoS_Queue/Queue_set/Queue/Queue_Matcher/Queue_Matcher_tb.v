@@ -66,6 +66,7 @@ module Queue_Matcher_tb;
 		@(posedge clk);
 
 		defined_source_ip_wen = 0;
+		defined_source_ip_in = 128'd0;
 		@(posedge clk);
 
 		fifo_out = 1;

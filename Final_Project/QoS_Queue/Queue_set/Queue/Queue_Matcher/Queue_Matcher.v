@@ -18,14 +18,18 @@ module Queue_Matcher
 
     integer i;
     reg [IP_LENGTH - 1:0] defined_source_ip [MATCHER_REG_NUMBER - 1:0];
+    reg [IP_LENGTH - 1:0] fifo_temp_source_ip_reg;
 
     always @(*) begin
+        if (fifo_out == 1) begin
+            fifo_temp_source_ip_reg = fifo_temp_source_ip;
+        end
         match = (fifo_out == 1) &&
                     (
-                        (defined_source_ip[0] == fifo_temp_source_ip) ||
-                        (defined_source_ip[1] == fifo_temp_source_ip) ||
-                        (defined_source_ip[2] == fifo_temp_source_ip) ||
-                        (defined_source_ip[3] == fifo_temp_source_ip)
+                        (defined_source_ip[0] == fifo_temp_source_ip_reg) ||
+                        (defined_source_ip[1] == fifo_temp_source_ip_reg) ||
+                        (defined_source_ip[2] == fifo_temp_source_ip_reg) ||
+                        (defined_source_ip[3] == fifo_temp_source_ip_reg)
                     );
     end
 
