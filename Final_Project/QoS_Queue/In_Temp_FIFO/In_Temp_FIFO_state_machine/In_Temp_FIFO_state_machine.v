@@ -2,9 +2,8 @@
 
 module In_Temp_FIFO_state_machine
 # (
-    parameter FIFO_STALL_STATE = 2'd0,
-    parameter FIFO_IN_STATE = 2'd1,
-    parameter FIFO_OUT_STATE = 2'd2,
+    parameter FIFO_in = 1'b0,
+    parameter FIFO_out = 1'b1
 )
 (
     input clk,
@@ -19,21 +18,19 @@ module In_Temp_FIFO_state_machine
     output FIFO_OUT
 );
 
-    reg [1:0] current_state;
-    reg [1:0] next_state;
+    reg current_state;
+    reg next_state;
 
-    assign FIFO_IN = (next_state == FIFO_IN_STATE);
-    assign FIFO_OUT = (next_state == FIFO_OUT_STATE);
+    assign FIFO_IN = ~next_state;
+    assign FIFO_OUT = next_state;
 
     always @(posedge clk) begin
         if (rst) begin
-            current_state <= FIFO_STALL_STATE;
-            next_state <= FIFO_STALL_STATE;
-            RP_plus_3 <= 8'd0;
+            current_state <= FIFO_in;
         end
         else begin
             current_state <= next_state;
-            if (current_state == FIFO_IN_STATE && depth == 8'd3) begin
+            if (current_state == FIFO_in && depth == 8'd3) begin
                 RP_plus_3 <= RP + 8'd3;
             end
         end
@@ -41,26 +38,18 @@ module In_Temp_FIFO_state_machine
 
     always @(*) begin
         case(current_state)
-            FIFO_STALL_STATE: begin
-                if (pkt_begin) begin
-                    next_state = FIFO_IN_STATE;
-                end
-            end
-            FIFO_IN_STATE: begin
+            FIFO_in: begin
                 if (pkt_end) begin
-                    next_state = FIFO_STALL_STATE;
+                    next_state = FIFO_out;
                 end
             end
-            FIFO_OUT_STATE: begin
+            FIFO_out: begin
                 if (pkt_begin) begin
-                    next_state = FIFO_IN_STATE;
-                end
-                else begin
-                    next_state = FIFO_STALL_STATE;
+                    next_state = FIFO_in;
                 end
             end
             default: begin
-                next_state = FIFO_STALL_STATE;
+                next_state = FIFO_in;
             end
         endcase
     end

@@ -30,6 +30,7 @@ module In_Temp_FIFO_state_machine_tb;
 	reg [7:0] RP;
 	reg pkt_begin;
 	reg pkt_end;
+	reg [7:0] depth;
 
 	// Outputs
 	wire [7:0] RP_plus_3;
@@ -45,7 +46,8 @@ module In_Temp_FIFO_state_machine_tb;
 		.pkt_end(pkt_end), 
 		.RP_plus_3(RP_plus_3),
 		.FIFO_IN(FIFO_IN),
-		.FIFO_OUT(FIFO_OUT)
+		.FIFO_OUT(FIFO_OUT),
+		.depth(depth)
 	);
 
 	always #50 clk = ~clk;
@@ -57,6 +59,7 @@ module In_Temp_FIFO_state_machine_tb;
 		RP = 0;
 		pkt_begin = 0;
 		pkt_end = 0;
+		depth = 8'd0;
 
 		// Wait 100 ns for global reset to finish
 		@(posedge clk);
@@ -64,6 +67,7 @@ module In_Temp_FIFO_state_machine_tb;
 		// Add stimulus here
 		rst = 0;
 		RP = 8'd1;
+		depth = 8'd3;
 		pkt_begin = 1;
 		@(posedge clk);
 
@@ -71,6 +75,7 @@ module In_Temp_FIFO_state_machine_tb;
 		@(posedge clk);
 
 		RP = 8'd5;
+		depth = 8'd2;
 		@(posedge clk);
 
 		RP = 8'd7;
@@ -85,6 +90,7 @@ module In_Temp_FIFO_state_machine_tb;
 
 		RP = 8'd3;
 		pkt_begin = 1;
+		depth = 8'd3;
 		@(posedge clk);
 
 		RP = 8'd4;
