@@ -1,0 +1,11 @@
+/root/netfpga/projects/NetFPGA/synth/nf2_top.ngc 1745050760
+/root/netfpga/projects/NetFPGA/synth/IP_Core.ngc 1745050594
+/root/netfpga/projects/NetFPGA/synth/syncfifo_512x72.ngc 1745050594
+/root/netfpga/projects/NetFPGA/synth/cdq_tx_fifo_256x72_to_36.ngc 1745050594
+/root/netfpga/projects/NetFPGA/synth/cdq_rx_fifo_512x36_to_72.ngc 1745050594
+/root/netfpga/projects/NetFPGA/synth/txfifo_512x72_to_9.ngc 1745050594
+/root/netfpga/projects/NetFPGA/synth/rxfifo_8kx9_to_72.ngc 1745050594
+/root/netfpga/projects/NetFPGA/synth/rxlengthfifo_128x13.ngc 1745050594
+/root/netfpga/projects/NetFPGA/synth/pci2net_16x60.ngc 1745050594
+/root/netfpga/projects/NetFPGA/synth/net2pci_16x32.ngc 1745050594
+OK
